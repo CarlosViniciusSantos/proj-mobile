@@ -5,13 +5,15 @@ import Footer from './components/Footer'
 
 export default function App() {
   return (
+    <View style={styles.container}>
 
+        <Header/>
+      <ScrollView >
+        <Content />
+      </ScrollView>
+        <Footer />
+    </View>
 
-    <ScrollView style={styles.container}>
-      <Header />
-      <Content />
-      <Footer />
-    </ScrollView>
 
   );
 }

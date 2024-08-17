@@ -4,20 +4,9 @@ import CardAccount from "./CardAccount";
 export default function Header() {
     return (
         <View style={styles.content}>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
-            <CardAccount/>
+            {/* CARDACCOUNT ADICIONADO APENAS PARA A VISUALIZAÇÃO COMPLETA DO APP
+             MEXER APENAS NA SUA PARTE, CASO ALGO ESTEJA ATRAPALHANDO SUA PARTE, AVISE AO AMIGUINHO QUE A PARTE DELE ESTA ATRAPALHANDO, PARA UMA MANUTENÇÃO MELHOR 
+             OBRIGADO! */}
             <CardAccount/>
             <CardAccount/>
             <CardAccount/>
@@ -38,10 +27,8 @@ export default function Header() {
 
 const styles = StyleSheet.create({
     content: {
-        backgroundColor: '#85495e',
+        backgroundColor: '#dbdbdb',
         padding: 15,
         gap: 20
-        // justifyContent: 'center',
-        // alignItems: 'center'
     }
 })

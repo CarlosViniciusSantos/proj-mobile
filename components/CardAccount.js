@@ -11,7 +11,7 @@ export default function CardAccount(){
 
             <View style={styles.content}>
                 <Text style={styles.service}>INSTAGRAM</Text>
-                <Text style={styles.username}>c.ss_pv</Text>
+                <Text style={styles.username}>...</Text>
             </View>
         </View>
     )
@@ -39,6 +39,6 @@ const styles = StyleSheet.create({
         fontSize: 17
     },
     username:{
-        color: '#BBBBBB'
+        color: 'black'
     }
 })

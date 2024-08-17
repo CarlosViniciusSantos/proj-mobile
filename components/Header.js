@@ -1,30 +1,35 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Image } from 'expo-image'
-import Entypo from '@expo/vector-icons/Entypo';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function Header() {
   return (
     <View style={styles.header}>
       <View style={styles.user} >
+        <Text style={styles.name}>username</Text>
         <Image
           style={styles.avatar}
           source={require('../assets/avatar-hidan.jpg')}
         />
-        <Text style={styles.name}> Carlos Vinicius</Text>
       </View>
-      <Entypo style={styles.menu} name="menu" size={30} color="white" />
+      <Ionicons name="car-sport-outline" size={24} color="white" />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#2f0636',
+    backgroundColor: '#000000cc',
     alignItems: 'center',
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
     justifyContent: 'space-between',
-    padding: 20,
+    padding: 18,
+    paddingBottom:10,
     paddingTop:35,
+    // NÃO APAGUE ESSES 3 (DEIXE COMENTADO MSM):
+    // position:'absolute',
+    // right: 0,
+    // left: 0,
   },
   user: {
     flexDirection: 'row',
@@ -32,8 +37,8 @@ const styles = StyleSheet.create({
     gap: 10
   },
   avatar: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 25
   },
   name: {
