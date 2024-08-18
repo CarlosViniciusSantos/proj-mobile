@@ -3,6 +3,7 @@ import CardImage from "./CardImage";
 import CardFrase from "./CardFrase";
 import CardRegra from "./CardRegra";
 import CaroselCard from "./CaroselCard"
+import CardAutos from "./CardAutos";
 
 export default function Content() {
     
@@ -10,6 +11,7 @@ export default function Content() {
         <View>
             <CardImage/>
             <View style={styles.content}>
+                <CardAutos/>
                 <CardFrase/>
                 <CaroselCard/>
                 <CardRegra/>
