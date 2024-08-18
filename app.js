@@ -7,10 +7,10 @@ export default function App() {
   return (
     <View style={styles.container}>
 
-        <Header/>
       <ScrollView >
         <Content />
       </ScrollView>
+        <Header/>
         <Footer />
     </View>
 

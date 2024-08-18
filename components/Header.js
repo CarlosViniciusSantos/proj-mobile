@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     paddingBottom:10,
     paddingTop:35,
     // NÃO APAGUE ESSES 3 (DEIXE COMENTADO MSM):
-    // position:'absolute',
-    // right: 0,
-    // left: 0,
+    position:'absolute',
+    right: 0,
+    left: 0,
   },
   user: {
     flexDirection: 'row',
