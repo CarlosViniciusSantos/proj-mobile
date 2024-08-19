@@ -1,14 +1,17 @@
 import { View, Text, StyleSheet, Pressable  } from "react-native";
+import { Link } from 'expo-router';
 
 
-export default function CardRegra(props) {
-    const { onPress, title = 'Save' } = props;
+export default function CardRegra() {
+    
     return (
         <View style={styles.comp}>
             <Text style={styles.font}> Descubra as regras para postar um carro em nosso App! </Text>
-            <Pressable style={styles.button} onPress={onPress}>
+            {/* <Link href='../pages/Login.js'> */}
+            <Pressable style={styles.button} >
                 <Text style={styles.text}>Regras</Text>
             </Pressable>
+            {/* </Link> */}
         </View>
     )
 }
@@ -43,6 +46,6 @@ const styles = StyleSheet.create({
         lineHeight: 21,
         fontWeight: 'bold',
         letterSpacing: 0.25,
-        color: 'white',
+        color: 'gray',
     },
 })

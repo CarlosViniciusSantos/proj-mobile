@@ -21,7 +21,8 @@
     "react-native": "0.74.3",
     "react-native-pager-view": "6.3.0",
     "react-native-snap-carousel": "^3.9.1",
-    "react-native-web": "~0.19.10"
+    "react-native-web": "~0.19.10",
+    "expo-router": "~3.5.23"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
