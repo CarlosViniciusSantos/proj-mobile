@@ -5,7 +5,13 @@ import bg from '../assets/Group 26'
 export default function Login(){
     return(
         <ImageBackground source={bg}>
-            <Text>TESTE PARA BG</Text>
+            <Text style={styles.texto}>TESTE PARA BG</Text>
         </ImageBackground>
     )
 }
+
+const styles = StyleSheet.create({
+    texto:{
+        color:'green'
+    }
+})
