@@ -7,7 +7,7 @@ export default function Login() {
         <View style={styles.container}>
             <ImageBackground
                 style={styles.bg}
-                source={require('../assets/Bg.png')}>
+                source={require('../assets/background.png')}>
                 <Text style={styles.login}>Login</Text>
                 <TextInput
                     style={styles.input}
@@ -26,22 +26,18 @@ export default function Login() {
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white'
+        flex:1,
     },
     login: {
-        color: 'green'
+        color: 'black',
+        borderBottomWidth:90,
+        borderBottomColor: 'transparent'
     },
     bg: {
+        flex:1,
         justifyContent: "center",
         alignItems: 'center',
-        width: '100%',
-        height: '100%',
-        paddingTop: 90,
-        paddingBottom: 100,
-        borderTopWidth: 210,
-        borderTopColor: 'white'
+        gap: 30
     },
     input: {
         width: '80%',
@@ -56,7 +52,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 5,
-        elevation: 3, // Apenas para Android
+        elevation: 3
         
     },
 })
