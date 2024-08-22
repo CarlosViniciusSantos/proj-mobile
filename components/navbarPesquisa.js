@@ -1,31 +1,31 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; // Lembre-se de instalar @expo/vector-icons ou react-native-vector-icons
 
 export default function NavbarPesquisa() {
   return (
     <View style={styles.navbarContainer}>
       <View style={styles.titleContainer}>
+        <TouchableOpacity>
+          <Ionicons name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
         <Text style={styles.titleText}>Pesquisa</Text>
       </View>
 
-      <View style={styles.horizontalDivider} />
-      
+      {/* Linha separadora */}
+      <View style={styles.separator} />
 
       <View style={styles.navbar}>
-        <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.navText}>Filtro</Text>
+        <TouchableOpacity style={[styles.navItem, styles.navItemWithDivider]}>
+          <Text style={styles.navText}>Exibir</Text>
         </TouchableOpacity>
-        
-        <View style={styles.verticalDivider} />
-
-        <TouchableOpacity style={styles.navItem}>
+   
+        <TouchableOpacity style={[styles.navItem, styles.navItemWithDivider]}>
           <Text style={styles.navText}>Ordenar</Text>
         </TouchableOpacity>
 
-        <View style={styles.verticalDivider} />
-
         <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.navText}>Filtrar</Text>
+          <Text style={styles.navText}>Filtros</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -41,18 +41,17 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20, 
-    paddingVertical: 10, 
-    marginBottom: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 18,
+  },
   titleText: {
     fontSize: 18,
-    marginLeft: 10,
-    paddingTop: 10
+    marginLeft: 20,
   },
-  horizontalDivider: {
-    height: 0.5,
-    backgroundColor: 'black',
-    width: '100%',
+  separator: {
+    height: 1,
+    backgroundColor: '#ccc',
+    marginVertical: 10,
   },
   navbar: {
     flexDirection: 'row',
@@ -66,9 +65,8 @@ const styles = StyleSheet.create({
   navText: {
     fontSize: 16,
   },
-  verticalDivider: {
-    width: 0.5,
-    height: '100%',
-    backgroundColor: 'black',
-  },
+  container: {
+    flex: 1,
+    backgroundColor: "#232323"
+  }
 });
