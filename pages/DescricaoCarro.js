@@ -21,7 +21,7 @@ export default function CarDetails({ navigation }) {
                 </View>
 
                 <View style={styles.formGroup}>
-                    <TextInput style={[styles.input, styles.inform]} placeholder="Informações do carro" placeholderTextColor="#000" />
+                    <TextInput style={styles.input} placeholder="Cor" placeholderTextColor="#000" />
                     <TextInput style={styles.input} placeholder="Câmbio" placeholderTextColor="#000" />
                 </View>
 
@@ -38,10 +38,6 @@ export default function CarDetails({ navigation }) {
                 <View style={styles.formGroup}>
                     <TextInput style={styles.input} placeholder="Combustível" placeholderTextColor="#000" />
                     <TextInput style={styles.input} placeholder="Km" placeholderTextColor="#000" />
-                </View>
-
-                <View style={styles.formGroup}>
-                    <TextInput style={styles.input} placeholder="Cor" placeholderTextColor="#000" />
                 </View>
 
                 <TextInput 
@@ -70,7 +66,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         padding: 40,
         backgroundColor: '#f7f7f7',
-        elevation: 20,
+        elevation: 10,
         borderWidth: 1
     },
     content: {
