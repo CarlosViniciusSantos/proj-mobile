@@ -9,7 +9,7 @@ export default function Login() {
                 source={require('../assets/background.png')}>
                 <View style={styles.overlay}>
                     <MaterialIcons name="keyboard-backspace" size={24} color="black" style={styles.voltar} />
-                    <Text style={styles.title}>NameApp</Text>
+                    <Text style={styles.title}>CarTec</Text>
                     <Text style={styles.login}>Login</Text>
                     <TextInput
                         style={styles.input}
