@@ -6,11 +6,11 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 export default function Footer(){
     return(
       <View style={styles.footer}>
-        <Feather name="home" size={24} color="black" />
-        <Feather name="search" size={24} color="black" />
-        <AntDesign name="plus" size={24} color="black" />
-        <Ionicons name="car-sport-outline" size={24} color="black" />
-        <Feather name="menu" size={24} color="black" />
+        <Feather name="home" size={25} color="white" />
+        <Feather name="search" size={25} color="white" />
+        <AntDesign name="plus" size={25} color="white" />
+        <Ionicons name="car-sport-outline" size={25} color="white" />
+        <Feather name="menu" size={25} color="white" />
       </View>
     )
 }

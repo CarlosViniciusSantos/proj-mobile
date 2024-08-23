@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // Lembre-se de instalar @expo/vector-icons ou react-native-vector-icons
+import Ionicons from '@expo/vector-icons/Ionicons';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 export default function NavbarPesquisa() {
   return (
@@ -13,19 +15,22 @@ export default function NavbarPesquisa() {
       </View>
 
       {/* Linha separadora */}
-      <View style={styles.separator} />
+      {/* <View style={styles.separator} /> */}
 
       <View style={styles.navbar}>
-        <TouchableOpacity style={[styles.navItem, styles.navItemWithDivider]}>
+        <TouchableOpacity style={[styles.navItem]}>
+          <FontAwesome5 name="th-list" size={20} color="black" />
           <Text style={styles.navText}>Exibir</Text>
         </TouchableOpacity>
-   
-        <TouchableOpacity style={[styles.navItem, styles.navItemWithDivider]}>
+
+        <TouchableOpacity style={[styles.navItem]}>
+          <FontAwesome6 name="arrow-down-wide-short" size={20} color="black" />
           <Text style={styles.navText}>Ordenar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.navText}>Filtros</Text>
+          <Ionicons name="filter" size={24} color="black" />
+          <Text style={styles.navText}>Filtrar</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -35,8 +40,8 @@ export default function NavbarPesquisa() {
 const styles = StyleSheet.create({
   navbarContainer: {
     backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderTopWidth:20,
+    borderColor: 'transparent'
   },
   titleContainer: {
     flexDirection: 'row',
@@ -55,12 +60,20 @@ const styles = StyleSheet.create({
   },
   navbar: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingVertical: 10,
+    justifyContent: 'center',
+    // alignItems: 'center',
+    // paddingVertical: 10,
+    // borderWidth: 0.5
   },
   navItem: {
+    flexDirection: 'row',
+    flex: 1,
     paddingHorizontal: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    padding: 15,
+    gap: 6
   },
   navText: {
     fontSize: 16,

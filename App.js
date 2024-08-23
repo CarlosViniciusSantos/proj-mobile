@@ -2,7 +2,7 @@ import { StyleSheet, ScrollView, View } from 'react-native';
 import Header from './components/Header'
 import Content from './components/Content'
 import Footer from './components/Footer'
-// import NavbarPesquisa from './components/navbarPesquisa'; DESCOMENTE PARA VER
+// import NavbarPesquisa from './components/navbarPesquisa'; 
 
 export default function App() {
   return (
@@ -14,7 +14,7 @@ export default function App() {
         <Content />
       </ScrollView>
         <Header/>
-        {/* <NavbarPesquisa />  DESCOMENTE PARA VER*/}
+        {/* <NavbarPesquisa />  */}
 
         <Footer />
 
