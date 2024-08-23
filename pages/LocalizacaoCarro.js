@@ -1,16 +1,11 @@
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Image } from 'expo-image';
 
 export default function LocalizacaoCarro() {
   return (
     <View style={styles.container}>
         <MaterialIcons name="keyboard-backspace" size={24} color="black" style={styles.voltar} />
         <Text style={styles.voltarText}> Vender Carro</Text>
-        {/* <Image
-          style={styles.avatar}
-          source={require('../assets/avatar-hidan.jpg')}
-        /> */}
 
       <View style={styles.headerContainer}>
         <Text style={styles.primeira}>Primeira Etapa</Text>
@@ -65,7 +60,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'left',
     fontWeight: 'bold',
-    paddingTop: 50
+    paddingTop: 50,
+    color: 'red'
   },
   formContainer: {
     flex: 1,
@@ -107,11 +103,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 31,
     left: 15
-  },
-  // avatar: {
-  //   width: 40,
-  //   height: 40,
-  //   borderRadius: 25,
-  //   alignItems: 'baseline'
-  // },
+  }
 });
