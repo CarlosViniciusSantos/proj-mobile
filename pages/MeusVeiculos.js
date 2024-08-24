@@ -11,42 +11,6 @@ export default function MeusVeiculos() {
 
             <ScrollView >
                 <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
-                <CardMeuVeiculo/>
             </ScrollView>
             </View>
             <Footer />
