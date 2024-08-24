@@ -11,12 +11,6 @@ export default function CatalogoCarros() {
 
             <ScrollView >
                 <CardCarMaior />
-                <CardCarMaior />
-                <CardCarMaior />
-                <CardCarMaior />
-                <CardCarMaior />
-                <CardCarMaior />
-                <CardCarMaior />
             </ScrollView>
             </View>
             <Footer />
