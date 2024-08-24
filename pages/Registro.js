@@ -1,7 +1,7 @@
 import { StyleSheet, ImageBackground, View, Text, TextInput, Pressable } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-export default function Login() {
+export default function Registro() {
     return (
 
         <ImageBackground style={styles.bg} source={require('../assets/images/background.png')}>

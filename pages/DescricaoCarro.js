@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, Pressable, ScrollView } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-export default function CarDetails({ navigation }) {
+export default function DescricaoCarro() {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -108,10 +108,11 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     button: {
-        backgroundColor: 'red',
-        paddingVertical: 15,
+        backgroundColor: '#ff0000',
+        padding: 15,
         borderRadius: 5,
         alignItems: 'center',
+        marginTop: 100,
     },
     buttonText: {
         color: '#fff',
