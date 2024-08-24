@@ -3,82 +3,86 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function Login() {
     return (
-        <View style={styles.container}>
-            <ImageBackground
-                style={styles.bg}
-                source={require('../assets/background.png')}>
-                <View style={styles.overlay}>
-                    <MaterialIcons name="keyboard-backspace" size={24} color="black" style={styles.voltar} />
+
+        <ImageBackground style={styles.bg} source={require('../assets/background.png')}>
+            <View style={styles.overlay}>
+
+                <View style={styles.registro}>
+                    <MaterialIcons name="keyboard-backspace" size={24} color="black" />
                     <Text style={styles.title}>Registro</Text>
-                    {/* <Text style={styles.login}>Registro</Text> */}
-                    <View style={styles.formGroup}>
-                        <TextInput style={[styles.input, styles.nome]} placeholder="Nome" placeholderTextColor="#000" />
-                    </View>
-
-                    <View style={styles.formGroup}>
-                        <TextInput style={styles.input} placeholder="CPF" placeholderTextColor="#000" />
-                        <TextInput style={styles.input} placeholder="Data de Nascimento" placeholderTextColor="#000" />
-                    </View>
-
-                    <View style={styles.formGroup}>
-                        <TextInput style={[styles.input, styles.nome]} placeholder="Email" placeholderTextColor="#000" />
-                    </View>
-
-                    <View style={styles.formGroup}>
-                        <TextInput style={styles.input} placeholder="Cidade" placeholderTextColor="#000" />
-                        <TextInput style={styles.input} placeholder="Estado" placeholderTextColor="#000" />
-                    </View>
-
-                    <View style={styles.formGroup}>
-                        <TextInput style={[styles.input, styles.nome]} placeholder="Telefone" placeholderTextColor="#000" />
-                    </View>
-                    <View style={styles.formGroup}>
-                        <TextInput style={styles.input} placeholder="Senha" placeholderTextColor="#000" />
-                        <TextInput style={styles.input} placeholder="Confirmar Senha" placeholderTextColor="#000" />
-                    </View>
-                    <Pressable style={styles.button} >
-                        <Text style={styles.text}>Criar</Text>
-                    </Pressable>
-                    <Text style={styles.signupText}>
-                        Já tem uma conta? <Text style={styles.signupLink}>Entrar</Text>
-                    </Text>
+                    <View></View>
                 </View>
-            </ImageBackground>
-        </View>
+
+                <View style={styles.forbo}>
+                    <View style={styles.forms}>
+                        <View style={styles.formGroup}>
+                            <TextInput style={[styles.input, styles.nome]} placeholder="Nome" placeholderTextColor="#000" />
+                        </View>
+
+                        <View style={styles.formGroup}>
+                            <TextInput style={styles.input} placeholder="CPF" placeholderTextColor="#000" />
+                            <TextInput style={styles.input} placeholder="Data de Nascimento" placeholderTextColor="#000" />
+                        </View>
+
+                        <View style={styles.formGroup}>
+                            <TextInput style={[styles.input, styles.nome]} placeholder="Email" placeholderTextColor="#000" />
+                        </View>
+
+                        <View style={styles.formGroup}>
+                            <TextInput style={styles.input} placeholder="Cidade" placeholderTextColor="#000" />
+                            <TextInput style={styles.input} placeholder="Estado" placeholderTextColor="#000" />
+                        </View>
+
+                        <View style={styles.formGroup}>
+                            <TextInput style={[styles.input, styles.nome]} placeholder="Telefone" placeholderTextColor="#000" />
+                        </View>
+                        <View style={styles.formGroup}>
+                            <TextInput style={styles.input} placeholder="Senha" placeholderTextColor="#000" />
+                            <TextInput style={styles.input} placeholder="Confirmar Senha" placeholderTextColor="#000" />
+                        </View>
+                    </View>
+                    <View style={styles.botao}>
+                        <Pressable style={styles.button} >
+                            <Text style={styles.text}>Criar</Text>
+                        </Pressable>
+                        <Text style={styles.signupText}>
+                            Já tem uma conta? <Text style={styles.signupLink}>Entrar</Text>
+                        </Text>
+                    </View>
+                </View>
+            </View>
+        </ImageBackground>
+
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     bg: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '100%',
     },
     overlay: {
-        width: '90%',
+        width: '100%',
         alignItems: 'center',
-        position: 'relative'
+        padding: 20,
+        paddingTop: 0,
+        paddingBottom: 0
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         color: '#000',
-        // marginBottom: 170,
     },
     login: {
         fontSize: 26,
         fontWeight: 'bold',
         color: '#000',
-        marginBottom: 50,
     },
     formGroup: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 12,
-        gap: 15
+        marginBottom: 10,
     },
     input: {
         width: '48%',
@@ -90,11 +94,10 @@ const styles = StyleSheet.create({
     },
     button: {
         width: '80%',
-        paddingVertical: 15,
+        padding: 15,
         borderRadius: 5,
         backgroundColor: 'red',
         alignItems: 'center',
-        // marginBottom: 20,
         elevation: 3,
     },
     text: {
@@ -105,7 +108,6 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     signupText: {
-        marginTop: 20,
         color: '#333',
         fontSize: 14,
     },
@@ -113,12 +115,29 @@ const styles = StyleSheet.create({
         color: 'red',
         fontWeight: 'bold',
     },
-    voltar: {
-        position: 'absolute',
-        top: 2,
-        left: 1
-    },
     nome: {
         width: '100%'
+    },
+    forbo: {
+        gap: 40,
+        justifyContent: 'center',
+        height: '100%',
+    },
+    botao: {
+        alignItems: 'center'
+    },
+    registro: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderTopWidth:30,
+        borderColor:'transparent',
+        top: 0,
+        width: '100%',
+        gap:10
+    },
+    forms:{
+        borderBottomWidth:50,
+        borderColor:'transparent'
     }
 });
