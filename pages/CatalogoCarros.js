@@ -1,6 +1,7 @@
 import { StyleSheet, ScrollView, View } from 'react-native';
 import NavbarPesquisa from '../components/NavbarPesquisa';
 import CardCarMaior from '../components/CardCarMaior';
+import CardCarMenor from '../components/CardCarMenor';
 import Footer from '../components/Footer'
 
 export default function CatalogoCarros() {
@@ -10,7 +11,8 @@ export default function CatalogoCarros() {
             <View style={styles.scro}>
 
             <ScrollView >
-                <CardCarMaior />
+                <CardCarMaior/>
+                <CardCarMenor/>
             </ScrollView>
             </View>
             <Footer />
