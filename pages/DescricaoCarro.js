@@ -16,34 +16,33 @@ export default function DescricaoCarro() {
                 <Text style={styles.subtitle}>Digite Informações do Carro</Text>
 
                 <View style={styles.formGroup}>
-                    <TextInput style={styles.input} placeholder="Marca" placeholderTextColor="#000" />
-                    <TextInput style={styles.input} placeholder="Modelo" placeholderTextColor="#000" />
+                    <TextInput style={styles.input} placeholder="Marca" />
+                    <TextInput style={styles.input} placeholder="Modelo" />
                 </View>
 
                 <View style={styles.formGroup}>
-                    <TextInput style={styles.input} placeholder="Cor" placeholderTextColor="#000" />
-                    <TextInput style={styles.input} placeholder="Câmbio" placeholderTextColor="#000" />
+                    <TextInput style={styles.input} placeholder="Cor" />
+                    <TextInput style={styles.input} placeholder="Câmbio" />
                 </View>
 
                 <View style={styles.formGroup}>
-                    <TextInput style={styles.input} placeholder="Valor" placeholderTextColor="#000" />
-                    <TextInput style={styles.input} placeholder="Ano de Fabricação" placeholderTextColor="#000" />
+                    <TextInput style={styles.input} placeholder="Valor" />
+                    <TextInput style={styles.input} placeholder="Ano de Fabricação" />
                 </View>
 
                 <View style={styles.formGroup}>
-                    <TextInput style={styles.input} placeholder="Carroceria" placeholderTextColor="#000" />
-                    <TextInput style={styles.input} placeholder="Ano de Modelo" placeholderTextColor="#000" />
+                    <TextInput style={styles.input} placeholder="Carroceria" />
+                    <TextInput style={styles.input} placeholder="Ano de Modelo" />
                 </View>
 
                 <View style={styles.formGroup}>
-                    <TextInput style={styles.input} placeholder="Combustível" placeholderTextColor="#000" />
-                    <TextInput style={styles.input} placeholder="Km" placeholderTextColor="#000" />
+                    <TextInput style={styles.input} placeholder="Combustível" />
+                    <TextInput style={styles.input} placeholder="Km" />
                 </View>
 
                 <TextInput 
                     style={[styles.input, styles.textArea]} 
-                    placeholder="Descrição do Veículo" 
-                    placeholderTextColor="#000" 
+                    placeholder="Descrição do Veículo"  
                     multiline 
                 />
 
@@ -81,7 +80,8 @@ const styles = StyleSheet.create({
     subtitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 10,
+        marginBottom:30,
+        paddingTop: 20,
         color: 'red'
     },
     formGroup: {

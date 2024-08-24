@@ -16,29 +16,29 @@ export default function Registro() {
                 <View style={styles.forbo}>
                     <View style={styles.forms}>
                         <View style={styles.formGroup}>
-                            <TextInput style={[styles.input, styles.nome]} placeholder="Nome" placeholderTextColor="#000" />
+                            <TextInput style={[styles.input, styles.nome]} placeholder="Nome" />
                         </View>
 
                         <View style={styles.formGroup}>
-                            <TextInput style={styles.input} placeholder="CPF" placeholderTextColor="#000" />
-                            <TextInput style={styles.input} placeholder="Data de Nascimento" placeholderTextColor="#000" />
+                            <TextInput style={styles.input} placeholder="CPF" />
+                            <TextInput style={styles.input} placeholder="Data de Nascimento" />
                         </View>
 
                         <View style={styles.formGroup}>
-                            <TextInput style={[styles.input, styles.nome]} placeholder="Email" placeholderTextColor="#000" />
+                            <TextInput style={[styles.input, styles.nome]} placeholder="Email" />
                         </View>
 
                         <View style={styles.formGroup}>
-                            <TextInput style={styles.input} placeholder="Cidade" placeholderTextColor="#000" />
-                            <TextInput style={styles.input} placeholder="Estado" placeholderTextColor="#000" />
+                            <TextInput style={styles.input} placeholder="Cidade" />
+                            <TextInput style={styles.input} placeholder="Estado" />
                         </View>
 
                         <View style={styles.formGroup}>
-                            <TextInput style={[styles.input, styles.nome]} placeholder="Telefone" placeholderTextColor="#000" />
+                            <TextInput style={[styles.input, styles.nome]} placeholder="Telefone" />
                         </View>
                         <View style={styles.formGroup}>
-                            <TextInput style={styles.input} placeholder="Senha" placeholderTextColor="#000" />
-                            <TextInput style={styles.input} placeholder="Confirmar Senha" placeholderTextColor="#000" />
+                            <TextInput style={styles.input} placeholder="Senha" />
+                            <TextInput style={styles.input} placeholder="Confirmar Senha" />
                         </View>
                     </View>
                     <View style={styles.botao}>

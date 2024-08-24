@@ -14,12 +14,10 @@ export default function Login() {
                     <TextInput
                         style={styles.input}
                         placeholder="Email"
-                        placeholderTextColor="#000"
                     />
                     <TextInput
                         style={[styles.input, { marginBottom: 60 }]}
                         placeholder="Senha"
-                        placeholderTextColor="#000"
                     />
                     <Pressable style={styles.button} >
                         <Text style={styles.text}>Entrar</Text>
