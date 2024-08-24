@@ -4,13 +4,13 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 export default function Login() {
     return (
 
-        <ImageBackground style={styles.bg} source={require('../assets/background.png')}>
+        <ImageBackground style={styles.bg} source={require('../assets/images/background.png')}>
             <View style={styles.overlay}>
 
                 <View style={styles.registro}>
                     <MaterialIcons name="keyboard-backspace" size={24} color="black" />
                     <Text style={styles.title}>Registro</Text>
-                    <View></View>
+                    <View><Text style={styles.nada}>.....</Text></View>
                 </View>
 
                 <View style={styles.forbo}>
@@ -132,12 +132,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderTopWidth:30,
         borderColor:'transparent',
-        top: 0,
+        // top: 0,
         width: '100%',
-        gap:10
+        // gap:10
     },
     forms:{
         borderBottomWidth:50,
         borderColor:'transparent'
+    },
+    nada:{
+        color:'transparent'
     }
 });
