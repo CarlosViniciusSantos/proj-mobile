@@ -9,7 +9,7 @@ export default function NavbarPadrao() {
         <TouchableOpacity>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.titleText}>Vender carro</Text>
+        <Text style={styles.titleText}>Meus veículos</Text>
       </View>
 
     </View>

@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
   navbarContainer: {
     backgroundColor: '#fff',
     borderTopWidth:20,
-    borderColor: 'transparent'
+    borderColor: 'transparent',
+    elevation:30
   },
   titleContainer: {
     flexDirection: 'row',
