@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function NavbarPesquisa() {
+export default function NavbarDetalhes() {
   return (
     <View style={styles.navbarContainer}>
       <View style={styles.titleContainer}>
