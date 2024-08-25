@@ -9,7 +9,7 @@ export default function Header() {
         <Text style={styles.name}>username</Text>
         <Image
           style={styles.avatar}
-          source={require('../assets/avatar-hidan.jpg')}
+          source={require('../assets/images/avatar-hidan.jpg')}
         />
       </View>
       <Ionicons name="car-sport-outline" size={24} color="white" />
