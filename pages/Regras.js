@@ -6,10 +6,9 @@ import NavbarPadrao from '../components/NavbarPadrao'
 export default function Regras() {
   return (
     <View style={styles.container}>
-        <NavbarPadrao texto="Regras"/>
-      <ScrollView style={styles.scrollContainer}>
-        
+      <NavbarPadrao texto="Regras"/>
 
+      <ScrollView style={styles.scrollContainer}>
         <View style={styles.content}>
           <Text style={styles.subtitle}>Regras</Text>
 
