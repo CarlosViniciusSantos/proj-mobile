@@ -1,13 +1,10 @@
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import NavbarPadrao from '../components/NavbarPadrao'
 
 export default function LocalizacaoCarro() {
   return (
     <View style={styles.container}>
-      {/* <MaterialIcons name="keyboard-backspace" size={24} color="black" style={styles.voltar} />
-        <Text style={styles.voltarText}> Vender Carro</Text> */}
-      <NavbarPadrao texto="vender carro" />
+      <NavbarPadrao texto="Vender Carro" />
       <View style={styles.container2}>
 
         <View style={styles.headerContainer}>
@@ -49,14 +46,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     position: 'relative'
-  },
-  voltarText: {
-    fontSize: 16,
-    color: '#000',
-    textAlign: 'center',
-    position: 'absolute',
-    top: 30,
-    left: 50
   },
   headerContainer: {
     marginBottom: 30,
@@ -110,10 +99,5 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
-  },
-  voltar: {
-    position: 'absolute',
-    top: 31,
-    left: 15
   }
 });

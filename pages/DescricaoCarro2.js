@@ -1,15 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, Pressable, ScrollView } from 'react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import NavbarPadrao from '../components/NavbarPadrao'
 
 export default function DescricaoCarro2 () {
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <MaterialIcons name="keyboard-backspace" size={24} color="black" style={styles.voltar} />
-                <Text style={styles.voltarText}>Vender Carro</Text>
-                <MaterialIcons name="account-circle" size={35} color="red" style={styles.account} />
-            </View>
+            <NavbarPadrao texto="Vender Carro" />
             
             <ScrollView contentContainerStyle={styles.content}>
                 <Text style={styles.title}>Terceira Etapa</Text>

@@ -86,19 +86,8 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 15,
-    backgroundColor: '#f8f8f8',
-  },
-  title: {
-    fontWeight: '600',
-    fontSize: 22,
-    marginLeft: 10,
-  },
   content: {
-    padding: 15,
+    padding: 25,
   },
   subtitle: {
     color: '#ed2626',
@@ -115,12 +104,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 22,
     marginTop: 5,
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    padding: 12,
-    backgroundColor: '#de0202'
-  },
+    textAlign: 'justify'
+  }
 });

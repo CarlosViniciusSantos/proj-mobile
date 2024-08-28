@@ -3,47 +3,55 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function Login() {
     return (
-        <View style={styles.container}>
-            <ImageBackground
-                style={styles.bg}
-                source={require('../assets/images/background.png')}>
-                <View style={styles.overlay}>
-                    <MaterialIcons name="keyboard-backspace" size={24} color="black" style={styles.voltar} />
-                    <Text style={styles.title}>CarTech</Text>
-                    <Text style={styles.login}>Login</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Email"
-                    />
-                    <TextInput
-                        style={[styles.input, { marginBottom: 60 }]}
-                        placeholder="Senha"
-                    />
-                    <Pressable style={styles.button} >
-                        <Text style={styles.text}>Entrar</Text>
-                    </Pressable>
-                    <Text style={styles.signupText}>
-                        Não tem uma conta? <Text style={styles.signupLink}>Criar conta</Text>
-                    </Text>
+        <ImageBackground
+            style={styles.bg}
+            source={require('../assets/images/background.png')}>
+            <View style={styles.overlay}>
+                <View style={styles.registro}>
+                    <MaterialIcons name="keyboard-backspace" size={24} color="black" />
+                    <Text style={styles.title}>Login</Text>
+                    <View><Text style={styles.nada}>.....</Text></View>
                 </View>
-            </ImageBackground>
-        </View>
+                <View style={styles.forbo}>
+                    <View style={styles.forms}>
+
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Email"
+                        />
+                        <TextInput
+                            style={[styles.input, { marginBottom: 60 }]}
+                            placeholder="Senha"
+                        />
+                    </View>
+                    <View style={styles.botao}>
+
+                        <Pressable style={styles.button} >
+                            <Text style={styles.text}>Entrar</Text>
+                        </Pressable>
+                        <Text style={styles.signupText}>
+                            Não tem uma conta? <Text style={styles.signupLink}>Criar conta</Text>
+                        </Text>
+                    </View>
+                </View>
+            </View>
+        </ImageBackground>
+
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     bg: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '100%',
     },
     overlay: {
-        width: '90%',
+        width: '100%',
         alignItems: 'center',
-        position: 'relative'
+        padding: 20,
+        paddingTop: 0,
+        paddingBottom: 0
     },
     title: {
         fontSize: 24,
@@ -68,7 +76,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     button: {
-        width: '80%',
+        width: '90%',
         paddingVertical: 15,
         borderRadius: 5,
         backgroundColor: 'red',
@@ -96,5 +104,39 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: -60,
         left: 1
-    }
+    },
+    registro: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderTopWidth: 30,
+        borderColor: 'transparent',
+        // top: 0,
+        width: '100%',
+        // gap:10
+    },
+
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#000',
+    },
+
+    nada: {
+        color: 'transparent'
+    },
+    forbo: {
+        gap: 40,
+        justifyContent: 'center',
+        height: '100%',
+    },
+    forms: {
+        borderBottomWidth: 50,
+        borderColor: 'transparent',
+        width:300
+    },
+
+    botao: {
+        alignItems: 'center'
+    },
 });
