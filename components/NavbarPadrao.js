@@ -2,14 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function NavbarPadrao() {
+export default function NavbarPadrao({texto}) {
   return (
     <View style={styles.navbarContainer}>
       <View style={styles.titleContainer}>
         <TouchableOpacity>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.titleText}>Meus veículos</Text>
+        <Text style={styles.titleText}>{texto}</Text>
       </View>
 
     </View>

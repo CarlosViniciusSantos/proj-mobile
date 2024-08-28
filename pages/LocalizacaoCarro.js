@@ -1,33 +1,40 @@
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import NavbarPadrao from '../components/NavbarPadrao'
 
 export default function LocalizacaoCarro() {
   return (
     <View style={styles.container}>
-        <MaterialIcons name="keyboard-backspace" size={24} color="black" style={styles.voltar} />
-        <Text style={styles.voltarText}> Vender Carro</Text>
+      {/* <MaterialIcons name="keyboard-backspace" size={24} color="black" style={styles.voltar} />
+        <Text style={styles.voltarText}> Vender Carro</Text> */}
+      <NavbarPadrao texto="vender carro" />
+      <View style={styles.container2}>
 
-      <View style={styles.headerContainer}>
-        <Text style={styles.primeira}>Primeira Etapa</Text>
-        <Text style={styles.localiza}>Onde se localiza o Carro?</Text>
-      </View>
-
-      <View style={styles.formContainer}>
-        <TextInput style={styles.input} placeholder="CEP" />
-        <View style={styles.row}>
-          <TextInput style={[styles.input, styles.cidadeEstado]} placeholder="Cidade" />
-          <TextInput style={[styles.input, styles.cidadeEstado]} placeholder="Estado" />
+        <View style={styles.headerContainer}>
+          <Text style={styles.primeira}>Primeira Etapa</Text>
+          <Text style={styles.localiza}>Onde se localiza o Carro?</Text>
         </View>
-        <View style={styles.row}>
-          <TextInput style={[styles.input, styles.lograd]} placeholder="Logradouro" />
-          <TextInput style={[styles.input, styles.num]} placeholder="Número" />
-        </View>
-        <TextInput style={styles.input} placeholder="Complemento" />
-      </View>
 
-      <Pressable style={styles.proxButton}>
-        <Text style={styles.buttonText}>Próxima Etapa</Text>
-      </Pressable>
+        <View style={styles.formContainer}>
+          <View>
+
+          <TextInput style={styles.input} placeholder="CEP" />
+          <View style={styles.row}>
+            <TextInput style={[styles.input, styles.cidadeEstado]} placeholder="Cidade" />
+            <TextInput style={[styles.input, styles.cidadeEstado]} placeholder="Estado" />
+          </View>
+          <View style={styles.row}>
+            <TextInput style={[styles.input, styles.lograd]} placeholder="Logradouro" />
+            <TextInput style={[styles.input, styles.num]} placeholder="Número" />
+          </View>
+          <TextInput style={styles.input} placeholder="Complemento" />
+          </View>
+
+          <Pressable style={styles.proxButton}>
+            <Text style={styles.buttonText}>Próxima Etapa</Text>
+          </Pressable>
+        </View>
+      </View>
     </View>
   );
 };
@@ -35,8 +42,12 @@ export default function LocalizacaoCarro() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#fff',
+    position: 'relative'
+  },
+  container2: {
+    flex: 1,
+    padding: 20,
     position: 'relative'
   },
   voltarText: {
@@ -65,6 +76,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
+    justifyContent:'space-between'
   },
   row: {
     flexDirection: 'row',

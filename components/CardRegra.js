@@ -39,13 +39,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         borderRadius: 20,
         elevation: 3,
-        backgroundColor: 'darkred',
+        backgroundColor: 'red',
     },
     text: {
         fontSize: 16,
         lineHeight: 21,
         fontWeight: 'bold',
         letterSpacing: 0.25,
-        color: 'gray',
+        color: 'white',
     },
 })

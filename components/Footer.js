@@ -17,7 +17,7 @@ export default function Footer(){
 
 const styles = StyleSheet.create({
     footer:{
-        padding: 25,
+        padding: 22,
         backgroundColor: 'darkred',
         justifyContent: 'center',
         alignItems: 'center',
