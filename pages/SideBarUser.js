@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 export default function SideBarUser() {
     return (
@@ -14,17 +15,17 @@ export default function SideBarUser() {
                 </View>
             </View>
 
-            <Pressable style={styles.textContainer}>
+            <TouchableOpacity style={styles.textContainer}>
                 <Text style={styles.Text}>Atualizar Dados da Conta</Text>
-            </Pressable>
+            </TouchableOpacity>
 
-            <Pressable style={styles.textContainer}>
+            <TouchableOpacity style={styles.textContainer}>
                 <Text style={styles.Text}>Sobre nós</Text>
-            </Pressable>
+            </TouchableOpacity>
 
-            <Pressable style={styles.textContainer}>
+            <TouchableOpacity style={styles.textContainer}>
                 <Text style={styles.Text}>Regras</Text>
-            </Pressable>
+            </TouchableOpacity>
         </View>
     );
 };

@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import NavbarPadrao from '../components/NavbarPadrao'
 
 export default function LocalizacaoCarro() {
@@ -27,9 +27,9 @@ export default function LocalizacaoCarro() {
           <TextInput style={styles.input} placeholder="Complemento" />
           </View>
 
-          <Pressable style={styles.proxButton}>
+          <TouchableOpacity style={styles.proxButton}>
             <Text style={styles.buttonText}>Próxima Etapa</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from 'expo-image'
 
 export default function CardMeuVeiculo() {
@@ -19,9 +19,9 @@ export default function CardMeuVeiculo() {
 
                     <Text style={styles.preco}>R$ 300.000,00</Text>
                     <Text style={styles.adicionais}>Ler Detalhes...</Text>
-                    <Pressable style={styles.button} >
+                    <TouchableOpacity style={styles.button} >
                         <Text style={styles.text}>Atualizar dados do veiculos</Text>
-                    </Pressable>
+                    </TouchableOpacity>
 
 
                 </View>

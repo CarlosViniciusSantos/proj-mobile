@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Pressable, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import NavbarPadrao from '../components/NavbarPadrao';
 
 export default function DescricaoCarro() {
@@ -43,9 +43,9 @@ export default function DescricaoCarro() {
                     multiline 
                 />
 
-                <Pressable style={styles.button} onPress={() => {/* Navegação para próxima etapa */}}>
+                <TouchableOpacity style={styles.button} onPress={() => {/* Navegação para próxima etapa */}}>
                     <Text style={styles.buttonText}>Etapa Final</Text>
-                </Pressable>
+                </TouchableOpacity>
             </ScrollView>
         </View>
     );
@@ -55,15 +55,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: 40,
-        backgroundColor: '#f7f7f7',
-        elevation: 10,
-        borderWidth: 1
     },
     content: {
         padding: 20,
@@ -95,9 +86,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: '#fff',
     },
-    // inform: {
-    //     width: '100%'
-    // },
     textArea: {
         width: '100%',
         height: 100,
@@ -115,24 +103,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 16,
-    },
-    voltarText: {
-        textAlign: 'center',
-        position: 'absolute',
-        top: 36,
-        left: 50,
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    voltar: {
-        position: 'absolute',
-        top: 39,
-        left: 15
-    },
-    account: {
-        position: 'absolute',
-        top: 33,
-        right: 30
     },
       
 });
