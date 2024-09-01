@@ -1,63 +1,73 @@
-import { StyleSheet, ImageBackground, View, Text, TextInput, Pressable } from 'react-native';
+import { StyleSheet, ImageBackground, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Image } from 'react-native';
 
 export default function Login() {
+
     return (
-        <ImageBackground
-            style={styles.bg}
-            source={require('../assets/images/background.png')}>
-            <View style={styles.overlay}>
-                <View style={styles.registro}>
-                    <MaterialIcons name="keyboard-backspace" size={24} color="black" />
-                    <Text style={styles.title}>Login</Text>
-                    <View><Text style={styles.nada}>.....</Text></View>
-                </View>
-                <View style={styles.forbo}>
+        <View style={styles.container}>
+            <ImageBackground
+                style={styles.bg}
+                source={require('../assets/images/background.png')}>
+                <View style={styles.overlay}>
+                    <TouchableOpacity style={styles.voltar} >
+                        <MaterialIcons name="keyboard-backspace" size={24} color="black" />
+                    </TouchableOpacity>
+                    <Image
+                        style={styles.logo}
+                        source={require('../assets/images/logo.png')}
+                    />
                     <View style={styles.forms}>
 
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Email"
-                        />
-                        <TextInput
-                            style={[styles.input, { marginBottom: 60 }]}
-                            placeholder="Senha"
-                        />
-                    </View>
-                    <View style={styles.botao}>
+                        <View style={styles.inputs}>
+                        <Text style={styles.login}>Login</Text>
 
-                        <Pressable style={styles.button} >
-                            <Text style={styles.text}>Entrar</Text>
-                        </Pressable>
-                        <Text style={styles.signupText}>
-                            Não tem uma conta? <Text style={styles.signupLink}>Criar conta</Text>
-                        </Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Email"
+                            />
+                            <TextInput
+                                style={[styles.input, { marginBottom: 60 }]}
+                                placeholder="Senha"
+                                
+                            />
+                        </View>
+                        <View style={styles.botoes}>
+
+                            <TouchableOpacity style={styles.button}>
+                                <Text style={styles.text}>Entrar</Text>
+                            </TouchableOpacity>
+                            <Text style={styles.signupText}>
+                                Não tem uma conta? <Text style={styles.signupLink} >Criar conta</Text>
+                            </Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-        </ImageBackground>
-
+            </ImageBackground>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     bg: {
         flex: 1,
-        alignItems: 'center',
-        width: '100%',
+        justifyContent: "center",
+        alignItems: 'center'
     },
     overlay: {
-        width: '100%',
+        width: '90%',
         alignItems: 'center',
-        padding: 20,
-        paddingTop: 0,
-        paddingBottom: 0
+        position: 'relative'
     },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#000',
-        marginBottom: 170,
+    logo: {
+        width: 100,
+        height: 100,
+        resizeMode: 'contain',
+        marginBottom: 190,
+
     },
     login: {
         fontSize: 26,
@@ -76,7 +86,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     button: {
-        width: '90%',
+        width: '80%',
         paddingVertical: 15,
         borderRadius: 5,
         backgroundColor: 'red',
@@ -92,9 +102,9 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     signupText: {
-        marginTop: 20,
         color: '#333',
         fontSize: 14,
+        marginBottom: 100,
     },
     signupLink: {
         color: 'red',
@@ -102,41 +112,20 @@ const styles = StyleSheet.create({
     },
     voltar: {
         position: 'absolute',
-        top: -60,
+        top: 30,
         left: 1
     },
-    registro: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderTopWidth: 30,
-        borderColor: 'transparent',
-        // top: 0,
-        width: '100%',
-        // gap:10
-    },
-
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#000',
-    },
-
-    nada: {
-        color: 'transparent'
-    },
-    forbo: {
-        gap: 40,
-        justifyContent: 'center',
-        height: '100%',
-    },
     forms: {
-        borderBottomWidth: 50,
-        borderColor: 'transparent',
-        width:300
+        gap: 50,
+        width: "100%",
+        alignItems: "center"
     },
-
-    botao: {
-        alignItems: 'center'
+    inputs: {
+        width: "100%",
+        alignItems:'center'
     },
+    botoes:{
+        width:"100%",
+        alignItems:"center"
+    }
 });

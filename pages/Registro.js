@@ -1,19 +1,24 @@
-import { StyleSheet, ImageBackground, View, Text, TextInput, Pressable } from 'react-native';
+import { StyleSheet, ImageBackground, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Image } from 'react-native';
 
 export default function Registro() {
     return (
 
         <ImageBackground style={styles.bg} source={require('../assets/images/background.png')}>
             <View style={styles.overlay}>
-
                 <View style={styles.registro}>
                     <MaterialIcons name="keyboard-backspace" size={24} color="black" />
-                    <Text style={styles.title}>Registro</Text>
+                    <Image
+                        style={styles.logo}
+                        source={require('../assets/images/logo.png')}
+                    />
                     <View><Text style={styles.nada}>.....</Text></View>
                 </View>
 
+
                 <View style={styles.forbo}>
+                        <Text style={styles.title}>Registro</Text>
                     <View style={styles.forms}>
                         <View style={styles.formGroup}>
                             <TextInput style={[styles.input, styles.nome]} placeholder="Nome" />
@@ -34,7 +39,7 @@ export default function Registro() {
                         </View>
 
                         <View style={styles.formGroup}>
-                            <TextInput style={[styles.input, styles.nome]} placeholder="Telefone" />
+                            <TextInput style={[styles.input, styles.nome]} placeholder="Telefone" keyboardType='numeric' />
                         </View>
                         <View style={styles.formGroup}>
                             <TextInput style={styles.input} placeholder="Senha" />
@@ -42,9 +47,9 @@ export default function Registro() {
                         </View>
                     </View>
                     <View style={styles.botao}>
-                        <Pressable style={styles.button} >
+                        <TouchableOpacity style={styles.button} >
                             <Text style={styles.text}>Criar</Text>
-                        </Pressable>
+                        </TouchableOpacity>
                         <Text style={styles.signupText}>
                             Já tem uma conta? <Text style={styles.signupLink}>Entrar</Text>
                         </Text>
@@ -67,7 +72,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
         paddingTop: 0,
-        paddingBottom: 0
+        paddingBottom: 0,
+        gap:60,
+        flex:1
     },
     title: {
         fontSize: 24,
@@ -119,28 +126,40 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     forbo: {
-        gap: 40,
+        gap: 10,
         justifyContent: 'center',
-        height: '100%',
+        // height: '100%',
+        alignItems:"center",
+        width:'100%',
+        flex:1
     },
     botao: {
-        alignItems: 'center'
+        alignItems: 'center',
+        width:"100%",
+        gap:5
     },
     registro: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderTopWidth:30,
-        borderColor:'transparent',
+        borderTopWidth: 10,
+        borderColor: 'transparent',
         // top: 0,
         width: '100%',
         // gap:10
     },
-    forms:{
-        borderBottomWidth:50,
-        borderColor:'transparent'
+    forms: {
+        borderBottomWidth: 50,
+        borderColor: 'transparent',
+        // alignItems:'center'
     },
-    nada:{
-        color:'transparent'
-    }
+    nada: {
+        color: 'transparent'
+    },
+    logo: {
+        width: 100,
+        height: 100,
+        resizeMode: 'contain'
+
+    },
 });
