@@ -1,5 +1,5 @@
 import { TouchableOpacity } from 'react-native';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, /*TouchableOpacity*/} from 'react-native';
 
 export default function SideBarUser() {
     return (
