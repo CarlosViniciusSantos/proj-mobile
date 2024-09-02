@@ -1,5 +1,4 @@
-import { Feather } from '@expo/vector-icons';
-import { View, Text, StyleSheet, ScrollView, /*TouchableOpacity*/ } from 'react-native';
+import { View, Text, StyleSheet, ScrollView} from 'react-native';
 import Footer from '../components/Footer'
 import NavbarPadrao from '../components/NavbarPadrao'
 
