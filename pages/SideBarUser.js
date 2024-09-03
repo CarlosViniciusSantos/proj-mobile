@@ -19,6 +19,10 @@ export default function SideBarUser() {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.textContainer}>
+                <Text style={styles.Text}>Atualizar Dados dos Anúncios</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.textContainer}>
                 <Text style={styles.Text}>Sobre nós</Text>
             </TouchableOpacity>
 

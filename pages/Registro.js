@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: 'red',
         alignItems: 'center',
+        marginBottom: 10,
         elevation: 3,
     },
     text: {
