@@ -18,8 +18,8 @@ export default function SideBarUser() {
                 <Text style={styles.Text}>Atualizar Dados da Conta</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.textContainer}>
-                <Text style={styles.Text}>Atualizar Dados dos Anúncios</Text>
+            <TouchableOpacity style={styles.textContainer} >
+                <Text style={styles.Text}>Minhas Compras</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.textContainer}>

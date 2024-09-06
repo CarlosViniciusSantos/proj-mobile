@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from 'expo-image'
 
 export default function CardCarMaior() {
     return (
-        <View style={styles.pad}>
+        <TouchableOpacity style={styles.pad}>
             <View style={styles.card}>
             <Image
                 style={styles.image}
@@ -29,7 +29,7 @@ export default function CardCarMaior() {
                 </View>
             </View>
         </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
