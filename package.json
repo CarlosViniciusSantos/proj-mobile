@@ -20,8 +20,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.3",
+    "react-native-barcode-svg": "^0.0.15",
     "react-native-pager-view": "6.3.0",
+    "react-native-qrcode-svg": "^6.3.2",
     "react-native-snap-carousel": "^3.9.1",
+    "react-native-svg": "^15.6.0",
     "react-native-web": "~0.19.10"
   },
   "devDependencies": {
