@@ -1,6 +1,19 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import ExcluirModal from '../components/ModalExcluir';
 
 export default function SideBarUser() {
+
+    const [modalVisibleExcluir, setModalVisibleExcluir] = useState(false);
+
+    const openModalExcluir = () => {
+        setModalVisibleExcluir(true);
+    };
+
+    const closeModalExcluir = () => {
+        setModalVisibleExcluir(false);
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.perfilContainer}>
@@ -22,17 +35,24 @@ export default function SideBarUser() {
                 <Text style={styles.Text}>Minhas Compras</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.textContainer}>
+            <TouchableOpacity style={styles.textContainer} >
                 <Text style={styles.Text}>Sobre nós</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.textContainer}>
+            <TouchableOpacity style={styles.textContainer} >
                 <Text style={styles.Text}>Regras</Text>
             </TouchableOpacity>
+
+            <View style={ styles.excluir}>
+                <TouchableOpacity style={styles.textContainer} onPress={openModalExcluir}>
+                    <Text style={styles.Textex}>Excluir minha conta</Text>
+                </TouchableOpacity>
+            </View>
+            <ExcluirModal visible={modalVisibleExcluir} onClose={closeModalExcluir}/>
+
         </View>
     );
 };
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -72,5 +92,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 5,
+    },
+    excluir: {
+        justifyContent: 'flex-end',
+        flex:1,
+        paddingBottom:50
+    },
+    Textex:{
+        color:'red',
+        fontSize: 16,
+        fontWeight:'bold'
     }
 });
