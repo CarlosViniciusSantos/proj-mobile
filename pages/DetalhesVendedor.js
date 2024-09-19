@@ -43,7 +43,6 @@ export default function DetalhesVendedor() {
                     </View>
                 </View>
             </View>
-
             <FooterVendas/>
         </View>
     );

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
     paddingHorizontal: 5,
-    borderColor: '#ddd',
+    borderColor: '#ddd'
   },
   comprarButton: {
     flex: 4,
