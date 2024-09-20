@@ -43,11 +43,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontWeight:'bold'
   },
-  separator: {
-    height: 1,
-    backgroundColor: '#ccc',
-    marginVertical: 10,
-  },
   navbar: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -65,9 +60,5 @@ const styles = StyleSheet.create({
   navText: {
     fontSize: 16,
     fontWeight:'bold'
-  },
-  container: {
-    flex: 1,
-    backgroundColor: "#232323"
   }
 });

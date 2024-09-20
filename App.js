@@ -5,9 +5,6 @@ import Footer from './components/Footer'
 
 export default function App() {
   return (
-
-
-
     <View style={styles.container}>
       <ScrollView>
         <Content />
