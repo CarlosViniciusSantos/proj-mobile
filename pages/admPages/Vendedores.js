@@ -11,25 +11,27 @@ export default function Vendedores() {
             const response = await fetch('https://pi3-backend-i9l3.onrender.com/usuarios')
             console.log(response)
             if (response.ok) {
-                const data = await response.json()
-                console.log(data)
-                setUsuarios(data)
-                return
+                const data = await response.json();
+                console.log(data);
+                setUsuarios(data);
+                return;
             }
-            console.log("Erro ao carregar contas dos usuários")
-            return
+            console.log("Erro ao carregar contas dos usuários");
         }
 
-        getUsers()
-    }, [])
+        getUsers();
+    }, []);
+
+    // Filtrar apenas os administradores
+    const administradores = usuarios.filter(usuario => usuario.isAdmin);
 
     return (
         <View style={styles.container}>
-            <NavbarAdm user={false} vend={true}/>
+            <NavbarAdm user={false} vend={true} />
             <ScrollView style={styles.scr}>
-                {usuarios.length === 0 && <Text>Carregando...</Text>}
+                {administradores.length === 0 && <Text>Carregando ou nenhum administrador encontrado...</Text>}
                 {
-                    usuarios.map((usuario) =>
+                    administradores.map((usuario) =>
                         <CardUser
                             key={usuario.id}
                             id={usuario.id}
@@ -41,14 +43,14 @@ export default function Vendedores() {
                             cidade={usuario.cidade}
                             estado={usuario.estado}
                             senha={usuario.senha}
-                            // setUsuarios={setUsuarios}
+                            isAdmin={usuario.isAdmin}
                         />
                     )
                 }
 
             </ScrollView>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({

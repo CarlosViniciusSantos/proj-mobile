@@ -4,13 +4,14 @@ import { useRoute } from '@react-navigation/native';
 import NavbarPadrao from '../../components/NavbarPadrao';
 import Feather from '@expo/vector-icons/Feather';
 import ExcluirModal from '../../components/ModalExcluir';
+// Importações só serão usadas se o usuário não for admin
 import CardVeiculoUser from '../admPages/CardVeiculoUser';
 import CardComprasUser from '../admPages/CardComprasUser';
 
 export default function DetalhesUser() {
-
     const route = useRoute();  // Acessa os parâmetros da navegação
-    const { nome, email, telefone, foto, cidade, estado, cpf, usuarioId } = route.params || {};  // Inclui usuarioId do card clicado
+    const { nome, email, telefone, foto, cidade, estado, cpf, usuarioId, isAdmin } = route.params || {};  // Inclui usuarioId do card clicado
+    console.log("abc",route.params)
 
     const [modalVisibleExcluir, setModalVisibleExcluir] = useState(false);
 
@@ -75,27 +76,30 @@ export default function DetalhesUser() {
 
             <ExcluirModal visible={modalVisibleExcluir} onClose={closeModalExcluir} />
 
-            <Text style={styles.usu}>Anúncios do Usuário</Text>
+            {!isAdmin && (
+                <>
+                    <Text style={styles.usu}>Anúncios do Usuário</Text>
+                    <View style={styles.scro}>
+                        {loading ? (
+                            <Text>Carregando...</Text>
+                        ) : erro ? (
+                            <Text style={{ color: 'red' }}>{erro}</Text>
+                        ) : veiculosDoUsuario.length === 0 ? (
+                            <Text style={{ marginLeft: 10, marginBottom: 30, marginTop: 20 }}>Esse usuário não possuiu nenhum anúncio.</Text>
+                        ) : (
+                            <ScrollView>
+                                {veiculosDoUsuario.map(veiculo => (
+                                    <CardVeiculoUser key={veiculo.id} {...veiculo} />
+                                ))}
+                            </ScrollView>
+                        )}
+                    </View>
 
-            <View style={styles.scro}>
-                {loading ? (
-                    <Text>Carregando...</Text>
-                ) : erro ? (
-                    <Text style={{ color: 'red' }}>{erro}</Text>
-                ) : veiculosDoUsuario.length === 0 ? (
-                    <Text style={{ marginLeft: 10, marginBottom: 30, marginTop: 20 }}>Esse usuário não possuiu nenhum anúncio.</Text>
-                ) : (
-                    <ScrollView>
-                        {veiculosDoUsuario.map(veiculo => (
-                            <CardVeiculoUser key={veiculo.id} {...veiculo} />
-                        ))}
-                    </ScrollView>
-                )}
-            </View>
+                    <Text style={styles.usu}>Compras do Usuário</Text>
+                    <CardComprasUser />
+                </>
+            )}
 
-            <Text style={styles.usu}>Compras do Usuário</Text>
-            
-            <CardComprasUser/>
         </ScrollView>
     );
 }
@@ -103,7 +107,6 @@ export default function DetalhesUser() {
 const styles = StyleSheet.create({
     details1Container: {
         padding: 16,
-        // backgroundColor: '#FFF',
         borderBottomWidth: 1
     },
     image: {
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         color: 'red'
     },
-    scro:{
+    scro: {
         borderBottomWidth: 1
     }
 });

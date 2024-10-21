@@ -1,18 +1,41 @@
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import logoImg from '../assets/images/logo.png'
 import avatar from '../assets/images/avatar-hidan.jpg'
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function NavbarAdm({ user, vend }) {
 
     const navigation = useNavigation();
+
+    const [nome, setNome] = useState('');
+    const [foto, setFoto] = useState('');
+
+    // Use o useFocusEffect para buscar o nome sempre que a tela ganhar foco
+    useFocusEffect(
+        React.useCallback(() => {
+            const fetchNome = async () => {
+                const user = await AsyncStorage.getItem('nome');
+                const foto = await AsyncStorage.getItem('foto');
+                if (user) {
+                    setNome(user);
+                }
+                if (foto) {
+                    setFoto(foto)
+                }else{setFoto(fots)}
+            };
+            fetchNome();
+        }, [])
+    );
 
     return (
         <View style={styles.navbarContainer}>
             <View style={styles.titleContainer}>
                 <Image source={logoImg} style={styles.logo} />
                 <View style={styles.user}>
-                    <Text>Olá! AdmNome</Text>
+                    <Text>Olá! {nome}</Text>
                     <Image source={avatar} style={styles.avatar} />
                 </View>
             </View>
@@ -26,8 +49,8 @@ export default function NavbarAdm({ user, vend }) {
 
                 <TouchableOpacity style={[styles.navItem]} onPress={() => navigation.navigate('VendedorAdm')}>
                     {vend === true ?
-                        <Text style={styles.navTextAct}>Vendedores</Text>
-                        : <Text style={styles.navText}>Vendedores</Text>}
+                        <Text style={styles.navTextAct}>Administradores</Text>
+                        : <Text style={styles.navText}>Administradores</Text>}
                 </TouchableOpacity>
             </View>
         </View>

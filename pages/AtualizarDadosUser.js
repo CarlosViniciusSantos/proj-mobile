@@ -202,18 +202,7 @@ export default function AtualizarDadosUser() {
                             onChangeText={setTelefone}
                             keyboardType='numeric'
                         />
-                        <View style={styles.row}>
-                            <TextInput
-                                style={[styles.input, styles.senha]}
-                                placeholder="Senha"
-                                secureTextEntry
-                                value={senha}
-                                onChangeText={setSenha}
-                            />
-                            <TouchableOpacity>
-                                <Feather name="edit-2" size={24} color="black" />
-                            </TouchableOpacity>
-                        </View>
+                        
                     </View>
 
                     <TouchableOpacity

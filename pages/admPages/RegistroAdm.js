@@ -80,7 +80,7 @@ const RegistroAdm = ({ onRegister = () => { } }) => {
                 setSenha('');
                 setConfirmarSenha('');
 
-                navigation.navigate('Home');
+                navigation.navigate('UsuarioAdm');
             } else {
                 const errorText = await response.text();
                 Alert.alert('Erro', `Falha ao registrar usuário: ${errorText}`);
