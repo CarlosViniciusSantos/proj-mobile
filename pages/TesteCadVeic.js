@@ -47,7 +47,7 @@ export default function CadastrarVeiculo() {
         formData.append('km', 5000);
         formData.append('cor', "preto");
         formData.append('descricao', "Só quero postar a foto dessa bomba");
-        formData.append('usuarioId', parseInt(id));
+        formData.append('usuarioId', id);
 
         if (imageUri) {
             const fileName = imageUri.split('/').pop();
