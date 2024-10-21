@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import NavbarPadrao from '../components/NavbarPadrao';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Feather from '@expo/vector-icons/Feather';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function CadastrarVeiculo() {
   const navigation = useNavigation();
@@ -24,6 +26,8 @@ export default function CadastrarVeiculo() {
   const [txtCor, setTxtCor] = useState('');
   const [txtDescricao, setTxtDescricao] = useState('');
 
+  const [imageUri, setImageUri] = useState(null);
+
   const handlerCreateCar = async () => {
     const id = await AsyncStorage.getItem('id');
 
@@ -44,15 +48,25 @@ export default function CadastrarVeiculo() {
       km: parseInt(txtKm),
       cor: txtCor,
       descricao: txtDescricao,
-      usuarioId: parseInt(id),
-      foto: "https://foto.png"
+      usuarioId: id,
+      // foto: "https://foto.png"
+      if(imageUri) {
+        const fileName = imageUri.split('/').pop();
+        const match = /\.(\w+)$/.exec(fileName);
+        const fileType = match ? `image/${match[1]}` : `image`;
+        formData.append('foto', {
+          uri: imageUri,
+          name: fileName,
+          type: fileType,
+        });
+      }
     };
 
     try {
       const response = await fetch('https://pi3-backend-i9l3.onrender.com/veiculos', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'multipart/form-data', // Importante para upload de arquivo
         },
         body: JSON.stringify(veiculo)
       });
@@ -69,6 +83,18 @@ export default function CadastrarVeiculo() {
       console.error("Erro ao registrar carro:", error);
     }
   }
+
+  const handleImagePicker = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      aspect: [4, 4],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImageUri(result.assets[0].uri); // Armazena a URI da imagem
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -119,6 +145,11 @@ export default function CadastrarVeiculo() {
             onChangeText={setTxtComplemento}
             value={txtComplemento}
           />
+          <Text style={styles.sectionTitle}>Fotos do Veículo</Text>
+
+          <Feather name="image" size={24} color="black" onPress={handleImagePicker}/>
+
+          {imageUri && <Image source={{ uri: imageUri }} style={styles.imagePreview} />}
 
           <Text style={styles.sectionTitle}>Digite Informações do Carro</Text>
 
@@ -251,4 +282,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  imagePreview: {
+    width: '100%',
+    height: 200,
+    marginVertical: 10,
+    borderRadius: 10,
+},
 });
