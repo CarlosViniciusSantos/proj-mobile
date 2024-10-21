@@ -16,7 +16,7 @@ const PixModal = ({ visible, onClose }) => {
                         <AntDesign name="close" size={24} color="black" onPress={onClose} />
                     </View>
                     <QRCode
-                        value="a"
+                        value="https://www.youtube.com/@Hexm8x/videos"
                     />
                 </View>
             </View>

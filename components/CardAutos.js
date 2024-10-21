@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Image } from 'expo-image'
 
-
 export default function CardAutos() {
     return (
         <View>

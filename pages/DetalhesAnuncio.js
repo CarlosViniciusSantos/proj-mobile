@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
-import NavbarDetalhes from '../components/NavbarDetalhes';
+import { useRoute } from '@react-navigation/native';
 import FooterVendas from '../components/FooterVendas';
+import NavbarPadrao from '../components/NavbarPadrao';
 
-const { width } = Dimensions.get('window')
+const { width } = Dimensions.get('window');
 
+export default function DetalhesAnuncio() {
+  const route = useRoute();
+  const { veiculo, usuarioId } = route.params;
+  console.log('abc',useRoute())
 
-export default function CarDetailsPage() {
   const [expanded, setExpanded] = useState(false);
+  const [vendedor, setVendedor] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const toggleText = () => {
     setExpanded(!expanded);
   };
-  // Estado para armazenar os detalhes do veículo
-  const [carDetails, setCarDetails] = useState({
+
+  const [carDetails, setCarDetails] = useState(veiculo || {
     cidade: 'São Paulo, SP',
     anoFabricacao: '2020',
     anoModelo: '2021',
@@ -22,47 +28,64 @@ export default function CarDetailsPage() {
     carroceria: 'SUV',
     combustivel: 'Gasolina',
     cor: 'Preto',
-    observacoes: 'Tô vendendo meu Supra, um verdadeiro monstro das ruas. Pra quem manja, já sabe: é aquele clássico JDM com o lendário motor 2JZ, tração traseira e pronto pra despejar potência. O carro tá liso, sem detalhe, sempre bem cuidado e com tudo em cima nas manutenções. Se você curte projetinho, esse aqui é um prato cheio pra mod, aceita personalização numa boa, tanto de motor quanto estética. É o tipo de máquina que quando para, todo mundo vira o pescoço, e quando acelera, não tem pra ninguém. Ideal pra quem quer dar aquele rolê de responsa ou até mesmo colar nos eventos e arrancar suspiro da galera. Se você tá na pegada de pegar um JDM raiz, com história, potência e ainda com potencial de valorização, pode acreditar: esse Supra é o rolê certo!',
+    observacoes: 'Tô vendendo meu Supra...',
   });
 
-  // Função para atualizar as observações
-  const handleObservationChange = (text) => {
-    setCarDetails({ ...carDetails, observacoes: text });
-  };
+  useEffect(() => {
+    const fetchVendedor = async () => {
+      try {
+        const response = await fetch(`https://pi3-backend-i9l3.onrender.com/usuarios/${veiculo.usuarioId}`);
+        const data = await response.json();
+        console.log(data)
+        setVendedor(data);
+      } catch (error) {
+        console.error('Erro ao buscar dados do vendedor:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchVendedor();
+  }, [usuarioId]);
+
+  if (loading) {
+    return <Text>Carregando...</Text>;
+  }
+
+  console.log(veiculo.usuarioId.toString())
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <NavbarDetalhes texto="Anúncio" />
+      <NavbarPadrao texto="Detalhes do Anúncio"/>
 
       <View style={styles.imageGallery}>
-        <ScrollView horizontal pagingEnabled >
-          <Image
-            source={{ uri: 'https://images.pexels.com/photos/6894428/pexels-photo-6894428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' }}
-            style={styles.carImage}
-          />
-          <Image
-            source={{ uri: 'https://images.pexels.com/photos/6894428/pexels-photo-6894428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' }}
-            style={styles.carImage}
-          />
-          <Image
-            source={{ uri: 'https://images.pexels.com/photos/6894428/pexels-photo-6894428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' }}
-            style={styles.carImage}
-          />
+        <ScrollView horizontal pagingEnabled>
+          {/* Verifica se 'veiculo.foto' existe */}
+          {veiculo?.foto ? (
+            <Image
+              source={{ uri: veiculo.foto }}
+              style={styles.carImage}
+            />
+          ) : (
+            <Image
+              // source={{ uri: veiculo.veiculo }}
+              style={styles.carImage}
+            />
+          )}
         </ScrollView>
       </View>
 
       <View style={styles.detailsContainer}>
         <View style={styles.madelo}>
-          <Text style={styles.detailTitle}>Toyota </Text>
-          <Text style={styles.modelo}>Supra</Text>
+          <Text style={styles.detailTitle}>{carDetails.marca} </Text>
+          <Text style={styles.modelo}>{carDetails.modelo}</Text>
         </View>
         <View style={styles.preco}>
-          <Text style={styles.preco}>R$1.000.000 </Text>
+          <Text style={styles.preco}>R$ {carDetails.valor}</Text>
         </View>
         <View style={styles.line}>
           <View style={styles.detailItem}>
             <Text style={styles.detailTitle}>Cidade:</Text>
-            <Text style={styles.detailValue}>{carDetails.cidade}</Text>
+            <Text style={styles.detailValue}>{carDetails.cidade}-{carDetails.estado}</Text>
           </View>
 
           <View style={styles.detailItem}>
@@ -73,13 +96,13 @@ export default function CarDetailsPage() {
 
         <View style={styles.line}>
           <View style={styles.detailItem}>
-            <Text style={styles.detailTitle}>Ano Modelo:</Text>
-            <Text style={styles.detailValue}>{carDetails.anoModelo}</Text>
+            <Text style={styles.detailTitle}>Logradouro:</Text>
+            <Text style={styles.detailValue}>{carDetails.logradouro}</Text>
           </View>
 
           <View style={styles.detailItem}>
             <Text style={styles.detailTitle}>Quilometragem:</Text>
-            <Text style={styles.detailValue}>{carDetails.quilometragem}</Text>
+            <Text style={styles.detailValue}>{carDetails.km}</Text>
           </View>
         </View>
 
@@ -109,15 +132,29 @@ export default function CarDetailsPage() {
 
         <View>
           <Text style={styles.detailTitle}>Observações:</Text>
-          <Text style={styles.obs}>{expanded ? carDetails.observacoes : `${carDetails.observacoes.substring(0, 100)}...`}</Text>
+          <Text style={styles.obs}>
+            {expanded
+              ? carDetails.descricao || ''
+              : (carDetails.descricao&& <Text>{carDetails.descricao.substring(0, 100)}...</Text>) || ''}
+          </Text>
           <TouchableOpacity onPress={toggleText}>
             <Text style={styles.ler}>{expanded ? "Ler menos" : "Ler mais"}</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <FooterVendas />
-    </ScrollView>
 
+      <View style={styles.details1Container}>
+        <Image
+          style={styles.image}
+          source={vendedor?.foto ? { uri: vendedor.foto } : require('../assets/images/avatar-hidan.jpg')}
+        />
+        <Text style={styles.name}>Vendedor: {vendedor?.nome}</Text>
+        <Text style={styles.location}>Contato: {vendedor?.telefone}</Text>
+        <Text style={styles.location}>{vendedor?.email}</Text>
+      </View>
+
+      <FooterVendas teste={true} veiculo={veiculo} />
+    </ScrollView>
   );
 }
 
@@ -128,7 +165,6 @@ const styles = StyleSheet.create({
   },
   imageGallery: {
     height: 300,
-    // marginBottom: 16,
     width: 'auto'
   },
   carImage: {
@@ -141,8 +177,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     padding: 20,
-    // marginHorizontal: 10,
-    // marginVertical: 10,
+    borderBottomWidth: 1,
   },
   detailItem: {
     flexDirection: 'column',
@@ -154,7 +189,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
-    // width: '50%'
   },
   madelo: {
     flexDirection: 'row'
@@ -179,9 +213,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
-  ler:{
-    color:'red',
-    fontWeight:'900'
-  }
+  ler: {
+    color: 'red',
+    fontWeight: '900',
+  },
+  details1Container: {
+    padding: 16,
+    backgroundColor: '#FFF',
+    marginTop: 0,
+  },
+  image: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    marginBottom: 16,
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  location: {
+    color: '#888',
+  },
 });
 

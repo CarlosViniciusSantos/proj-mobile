@@ -1,36 +1,36 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
-export default function NavbarPesquisa() {
+export default function NavbarPesquisa({ alterarModoExibicao, mostrarFiltros, ordenar }) {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.navbarContainer}>
       <View style={styles.titleContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
         <Text style={styles.titleText}>Pesquisa</Text>
       </View>
 
-      {/* Linha separadora */}
-      {/* <View style={styles.separator} /> */}
-
       <View style={styles.navbar}>
-        <TouchableOpacity style={[styles.navItem]}>
+        <TouchableOpacity style={styles.navItem} onPress={alterarModoExibicao}>
           <FontAwesome5 name="th-list" size={20} color="black" />
           <Text style={styles.navText}>Exibir</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.navItem]}>
+        <TouchableOpacity style={styles.navItem} onPress={mostrarFiltros}>
           <FontAwesome6 name="arrow-down-wide-short" size={20} color="black" />
-          <Text style={styles.navText}>Ordenar</Text>
+          <Text style={styles.navText}>Filtrar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity style={styles.navItem} onPress={ordenar}>
           <Ionicons name="filter" size={24} color="black" />
-          <Text style={styles.navText}>Filtrar</Text>
+          <Text style={styles.navText}>Ordenar</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -40,9 +40,8 @@ export default function NavbarPesquisa() {
 const styles = StyleSheet.create({
   navbarContainer: {
     backgroundColor: '#fff',
-    borderTopWidth:20,
-    borderColor: 'transparent',
-    elevation:30
+    borderTopWidth: 20,
+    borderColor: 'transparent'
   },
   titleContainer: {
     flexDirection: 'row',
@@ -53,19 +52,11 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 18,
     marginLeft: 20,
-    fontWeight:'bold'
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#ccc',
-    marginVertical: 10,
+    fontWeight: 'bold'
   },
   navbar: {
     flexDirection: 'row',
     justifyContent: 'center',
-    // alignItems: 'center',
-    // paddingVertical: 10,
-    // borderWidth: 0.5
   },
   navItem: {
     flexDirection: 'row',
@@ -74,7 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderBottomWidth:0,
+    borderBottomWidth: 0,
     padding: 15,
     gap: 6
   },

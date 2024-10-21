@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, ScrollView} from 'react-native';
-import Footer from '../components/Footer'
+import { Feather } from '@expo/vector-icons';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import NavbarPadrao from '../components/NavbarPadrao'
 
 export default function Regras() {

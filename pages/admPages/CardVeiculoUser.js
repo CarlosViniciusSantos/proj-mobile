@@ -1,39 +1,52 @@
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
+import Feather from '@expo/vector-icons/Feather';
+import ExcluirVeiculoModal from '../../components/ModalExcluirVeiculo';
 
-export default function CardMeuVeiculo({ id, marca, modelo, valor, foto, cor }) {
+export default function CardMeuVeiculo({ id, marca, modelo, valor, foto, cor, anoFabricacao }) {
   const navigation = useNavigation();
+
+  const [modalVisibleExcluirVeiculo, setModalVisibleExcluirVeiculo] = useState(false);
+
+  const openModalExcluirVeiculo = () => {
+    setModalVisibleExcluirVeiculo(true);
+  };
+
+  const closeModalExcluirVeiculo = () => {
+    setModalVisibleExcluirVeiculo(false);
+  };
 
   return (
     <View style={styles.pad}>
       <View style={styles.card}>
         <Image
           style={styles.image}
-          source={foto ? { uri: foto } : require('../assets/images/imageCard.png')}
+          source={foto ? { uri: foto } : require('../../assets/images/imageCard.png')}
         />
         <View style={styles.infos}>
           <View style={styles.madelo}>
             <Text style={styles.marca}>{marca}</Text>
             <Text style={styles.modelo}> {modelo}</Text>
           </View>
-          <Text style={styles.preco}>R$ {valor}</Text>
-          <Text style={styles.preco}>{cor}</Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('AtualizarAnuncio', { veiculoId: id })}  // Passando o id do veículo para a página de atualização
-          >
-            <Text style={styles.text}>Atualizar dados do Anúncio</Text>
-          </TouchableOpacity>
+          <Text style={styles.preco}>R$: {valor}</Text>
+          <Text style={styles.preco}>Cor: {cor}</Text>
+          <Text style={styles.preco}>Ano: {anoFabricacao}</Text>
+          <Feather name="trash-2" size={30} color="black" onPress={openModalExcluirVeiculo} />
         </View>
       </View>
+
+      <ExcluirVeiculoModal visible={modalVisibleExcluirVeiculo} onClose={closeModalExcluirVeiculo} />
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
   pad: {
     paddingVertical: 10,
+    marginBottom: 30
   },
   card: {
     flexDirection: 'row',
@@ -41,6 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     padding: 10,
+    borderRadius: 20
   },
   image: {
     width: 150,
@@ -49,7 +63,7 @@ const styles = StyleSheet.create({
   infos: {
     paddingLeft: 9,
     paddingBottom: 5,
-    gap: 16,
+    gap: 5,
     width: '60%',
   },
   madelo: {
@@ -68,16 +82,11 @@ const styles = StyleSheet.create({
   preco: {
     fontWeight: 'bold',
   },
-  button: {
-    borderRadius: 5,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    elevation: 3,
-  },
   text: {
     fontSize: 10,
     fontWeight: 'bold',
     padding: 6,
     color: 'white',
   },
+  
 });

@@ -4,7 +4,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-const ExcluirModal = ({ visible, onClose }) => {
+const ExcluirVeiculoModal = ({ visible, onClose }) => {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
@@ -12,9 +12,9 @@ const ExcluirModal = ({ visible, onClose }) => {
         setLoading(true);
         try {
             const token = await AsyncStorage.getItem('token'); // Pega o token do AsyncStorage
-            const userId = await AsyncStorage.getItem('id'); // Pega o ID do usuário do AsyncStorage
+            const veiculoId = await AsyncStorage.getItem('id'); // Pega o ID do usuário do AsyncStorage
 
-            const response = await fetch(`https://pi3-backend-i9l3.onrender.com/usuarios/${userId}`, {
+            const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${veiculoId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`, // Envia o token de autenticação
@@ -54,10 +54,10 @@ const ExcluirModal = ({ visible, onClose }) => {
                         <AntDesign name="close" size={24} color="black" onPress={onClose} />
                     </View>
                     <View style={styles.textview}>
-                        <Text style={styles.text2}>Deseja realmente excluir a conta?</Text>
+                        <Text style={styles.text2}>Deseja realmente excluir o Anúncio?</Text>
                     </View>
                     <View style={styles.textpor}>
-                        <Text style={styles.text3}>Depois que você apaga uma conta, não há como voltar atrás. Por favor, tenha certeza.</Text>
+                        <Text style={styles.text3}>Depois que você apaga um Anúncio, não há como voltar atrás. Por favor, tenha certeza.</Text>
                     </View>
                     <View style={styles.row}>
                         <TouchableOpacity style={styles.botao2} onPress={handleDeleteAccount} disabled={loading}>
@@ -134,4 +134,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ExcluirModal;
+export default ExcluirVeiculoModal;

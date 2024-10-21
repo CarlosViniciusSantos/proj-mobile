@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import NavbarAdm from '../../components/NavbarAdm';
 import CardUser from '../../components/CardUser';
 
-export default function Usuarios() {
-    const [usuarios, setUsuarios] = useState([])
+export default function Vendedores() {
+    const [usuarios, setUsuarios] = useState([]);
 
     useEffect(() => {
         const getUsers = async () => {
@@ -22,10 +22,10 @@ export default function Usuarios() {
 
         getUsers()
     }, [])
-    
+
     return (
         <View style={styles.container}>
-            <NavbarAdm user={true} vend={false} />
+            <NavbarAdm user={false} vend={true}/>
             <ScrollView style={styles.scr}>
                 {usuarios.length === 0 && <Text>Carregando...</Text>}
                 {
@@ -56,8 +56,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     scr: {  
-        // paddingTop:10,
         paddingHorizontal: 10,
         flex: 1
     }
-})
+});

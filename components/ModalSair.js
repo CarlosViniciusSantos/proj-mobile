@@ -4,38 +4,21 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-const ExcluirModal = ({ visible, onClose }) => {
+const SairModal = ({ visible, onClose }) => {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
-    const handleDeleteAccount = async () => {
+    const handleLogout = async () => {
         setLoading(true);
         try {
-            const token = await AsyncStorage.getItem('token'); // Pega o token do AsyncStorage
-            const userId = await AsyncStorage.getItem('id'); // Pega o ID do usuário do AsyncStorage
-
-            const response = await fetch(`https://pi3-backend-i9l3.onrender.com/usuarios/${userId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`, // Envia o token de autenticação
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (response.ok) {
-                // Se a exclusão for bem-sucedida, limpa o AsyncStorage
-                await AsyncStorage.clear();
-                Alert.alert('Sucesso', 'Sua conta foi excluída com sucesso.');
-                onClose(); // Fecha o modal
-                navigation.navigate('Login'); // Redireciona para a tela de login
-            } else {
-                const errorText = await response.text();
-                Alert.alert('Erro', `Falha ao excluir conta: ${errorText}`);
-                console.log(errorText)
-            }
+            // Limpa o AsyncStorage, removendo todas as informações armazenadas
+            await AsyncStorage.clear();
+            Alert.alert('Sucesso', 'Você saiu da conta.');
+            onClose(); // Fecha o modal
+            navigation.navigate('Login'); // Redireciona para a tela de login
         } catch (error) {
-            console.error('Erro ao excluir conta:', error);
-            Alert.alert('Erro', 'Ocorreu um erro ao tentar excluir a conta.');
+            console.error('Erro ao sair da conta:', error);
+            Alert.alert('Erro', 'Ocorreu um erro ao tentar sair da conta.');
         } finally {
             setLoading(false);
         }
@@ -54,14 +37,14 @@ const ExcluirModal = ({ visible, onClose }) => {
                         <AntDesign name="close" size={24} color="black" onPress={onClose} />
                     </View>
                     <View style={styles.textview}>
-                        <Text style={styles.text2}>Deseja realmente excluir a conta?</Text>
+                        <Text style={styles.text2}>Deseja realmente sair da conta?</Text>
                     </View>
                     <View style={styles.textpor}>
-                        <Text style={styles.text3}>Depois que você apaga uma conta, não há como voltar atrás. Por favor, tenha certeza.</Text>
+                        <Text style={styles.text3}>Depois que você sair da conta, será necessário fazer login novamente para acessar o aplicativo.</Text>
                     </View>
                     <View style={styles.row}>
-                        <TouchableOpacity style={styles.botao2} onPress={handleDeleteAccount} disabled={loading}>
-                            <Text style={styles.text}>{loading ? 'Excluindo...' : 'Excluir'}</Text>
+                        <TouchableOpacity style={styles.botao2} onPress={handleLogout} disabled={loading}>
+                            <Text style={styles.text}>{loading ? 'Saindo...' : 'Sair'}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.botao} onPress={onClose}>
                             <Text style={styles.text}>Cancelar</Text>
@@ -88,7 +71,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     close: {
-        width: '100%'
+        width: '100%',
     },
     botao: {
         width: '40%',
@@ -111,7 +94,7 @@ const styles = StyleSheet.create({
         lineHeight: 21,
         fontWeight: 'bold',
         letterSpacing: 0.25,
-        color: 'white'
+        color: 'white',
     },
     row: {
         flexDirection: 'row',
@@ -121,17 +104,17 @@ const styles = StyleSheet.create({
     textview: {},
     text2: {
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     text3: {
-        fontSize: 17
+        fontSize: 17,
     },
     textpor: {
         padding: 25,
         paddingBottom: 30,
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
 });
 
-export default ExcluirModal;
+export default SairModal;

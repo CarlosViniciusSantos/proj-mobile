@@ -1,8 +1,6 @@
 import { ImageBackground, View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 
-import imageCar from '../assets/images/imageCar.png'
-
 export default function CardImage() {
     return (
         <View>

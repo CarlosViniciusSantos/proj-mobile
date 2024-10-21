@@ -5,7 +5,7 @@ import { TextInputMask } from 'react-native-masked-text';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Registro = ({ onRegister = () => { } }) => {
+const RegistroAdm = ({ onRegister = () => { } }) => {
     const navigation = useNavigation();
 
     const [nome, setNome] = useState('');
@@ -46,7 +46,7 @@ const Registro = ({ onRegister = () => { } }) => {
                     telefone: telSemFormatacao,
                     nascimento: nascimentoFormatado,
                     senha,
-                    isAdmin: false,
+                    isAdmin: true,
                     foto_perfil: "https://t.ctcdn.com.br/GcoDwE5pfX70dkeeDLZb3qXpexg=/640x360/smart/i601453.png",
                     cidade,
                     estado
@@ -100,18 +100,18 @@ const Registro = ({ onRegister = () => { } }) => {
     return (
         <TouchableWithoutFeedback onPress={dismissKeyboard}>
             <View style={styles.container}>
-                <ImageBackground style={styles.bg} source={require('../assets/images/background.png')}>
+                <ImageBackground style={styles.bg} source={require('../../assets/images/background.png')}>
                     <View style={styles.overlay}>
                         <View style={styles.registro}>
                             <TouchableOpacity onPress={() => navigation.goBack()}>
                                 <MaterialIcons name="keyboard-backspace" size={24} color="black" />
                             </TouchableOpacity>
-                            <Image style={styles.logo} source={require('../assets/images/logo.png')} />
+                            <Image style={styles.logo} source={require('../../assets/images/logo.png')} />
                             <View><Text style={styles.nada}>.....</Text></View>
                         </View>
 
                         <View style={styles.forbo}>
-                            <Text style={styles.title}>Registro</Text>
+                            <Text style={styles.title}>Registro Administrativo</Text>
                             <View style={styles.forms}>
                                 <View style={styles.formGroup}>
                                     <TextInput style={[styles.input, styles.nome]} placeholder="Nome" value={nome} onChangeText={setNome} />
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#000',
+        color: 'red',
     },
     formGroup: {
         flexDirection: 'row',
@@ -341,4 +341,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Registro;
+export default RegistroAdm;

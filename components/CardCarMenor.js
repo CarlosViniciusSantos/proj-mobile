@@ -1,34 +1,35 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Image } from 'expo-image'
+import { Image } from 'expo-image';
+import { useNavigation } from '@react-navigation/native';
 
-export default function CardCarMenor() {
+export default function CardCarMenor(props) {
+
+    const navigation = useNavigation();
+
     return (
-        <TouchableOpacity style={styles.pad}>
+        <TouchableOpacity style={styles.pad} onPress={() => navigation.navigate('Anuncio', {veiculo:props})}>
             <View style={styles.card}>
             <Image
                 style={styles.image}
-                source='https://images.pexels.com/photos/6894428/pexels-photo-6894428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                source={props.foto}
             />
             <View style={styles.infos}>
 
             
                 <View style={styles.madelo}>
-                    <Text style={styles.marca}>Toyota</Text>
-                    <Text style={styles.modelo}> Supra</Text>
+                    <Text style={styles.marca}>{props.marca} </Text>
+                    <Text style={styles.modelo}>{props.modelo}</Text>
                 </View>
-           
-            
-
                
                 <Text style={styles.adicionais}>Ler Detalhes...</Text>
                 
     
-                    <Text style={styles.text}>Ano: 1993</Text>
-                    <Text style={styles.text}>Cor: cinza prata</Text>
-                    <Text style={styles.text}>KM: 74.587</Text>
-                    <Text style={styles.text}>Caraguatauba-SP</Text>
+                    <Text style={styles.text}>Ano: {props.anoFabricacao}</Text>
+                    <Text style={styles.text}>Cor: {props.cor}</Text>
+                    <Text style={styles.text}>KM: {props.km}</Text>
+                    <Text style={styles.text}>{props.cidade}-{props.estado}</Text>
                 
-                <Text style={styles.preco}>R$ 300.000,00</Text>
+                <Text style={styles.preco}>R$ {props.valor}</Text>
             
             </View>
         </View>

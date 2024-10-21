@@ -1,12 +1,14 @@
 import { View, Text, StyleSheet, TouchableOpacity  } from "react-native";
-
+import { useNavigation } from '@react-navigation/native';
 
 export default function CardRegra() {
+
+    const navigation = useNavigation();
     
     return (
         <View style={styles.comp}>
             <Text style={styles.font}> Descubra as regras para postar um carro em nosso App! </Text>
-            <TouchableOpacity style={styles.button} >
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Regras')}>
                 <Text style={styles.text}>Regras</Text>
             </TouchableOpacity>
         </View>

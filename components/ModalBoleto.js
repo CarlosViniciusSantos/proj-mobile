@@ -16,7 +16,7 @@ const BoletoModal = ({ visible, onClose }) => {
                         <AntDesign name="close" size={24} color="black" onPress={onClose} />
                     </View>
                     <Barcode
-                        value="abcde"
+                        value="https://www.youtube.com/@Hexm8x/videos"
                     />
                 </View>
             </View>

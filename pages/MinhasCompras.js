@@ -2,7 +2,7 @@ import { StyleSheet, ScrollView, View } from 'react-native';
 import NavbarPadrao from '../components/NavbarPadrao';
 import CardMinhasCompras from '../components/CardMinhasCompras'
 
-export default function MeusVeiculos() {
+export default function MinhasCompras() {
     return (
         <View style={styles.container}>
             <NavbarPadrao texto="Minhas Compras" />

@@ -1,17 +1,23 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { useNavigation } from '@react-navigation/native';  // Importando a navegação
 
-import avatar from '../assets/images/nophoto.jpg'
+import avatar from '../assets/images/nophoto.jpg';
 
-export default function CardUser({ nome, email}) {
+export default function CardUser({ nome, email, telefone, foto, id, cidade, estado, cpf }) {
+    const navigation = useNavigation();  // Hook para acessar a navegação
+
     return (
-        <TouchableOpacity style={styles.card}>
-            <Image source={avatar} style={styles.avatar} />
+        <TouchableOpacity 
+            style={styles.card} 
+            onPress={() => navigation.navigate('DetalhesUser', { nome, email, telefone, foto, id, cidade, estado, cpf, usuarioId: id,})}  // Navega e passa os dados
+        >
+            <Image source={foto ? { uri: foto } : avatar} style={styles.avatar} />
             <View style={styles.infos}>
                 <Text style={styles.nome}>{nome}</Text>
                 <Text style={styles.email}>{email}</Text>
             </View>
         </TouchableOpacity>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -30,12 +36,16 @@ const styles = StyleSheet.create({
         height:60,
         borderRadius:100
     },
-    infos:{},
+    infos:{
+        flex: 1,
+    },
     nome:{
-        fontWeight:'bold'
+        fontWeight:'bold',
+        fontSize: 16,
     },
     email:{
         fontWeight:'bold',
-        color:'red'
+        color:'red',
+        fontSize: 14,
     },
-})
+});

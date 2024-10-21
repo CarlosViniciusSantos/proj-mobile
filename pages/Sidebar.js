@@ -1,6 +1,9 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default function SideBarUser() {
+export default function SideBar() {
+
+    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
@@ -10,17 +13,17 @@ export default function SideBarUser() {
                     style={styles.perfilImage}
                 />
                 <View style={styles.usuario}>
-                    <TouchableOpacity style={styles.button} >
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
                         <Text style={styles.text}>Entrar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
 
-            <TouchableOpacity style={styles.textContainer} >
+            <TouchableOpacity style={styles.textContainer} onPress={() => navigation.navigate('SobreNos')}>
                 <Text style={styles.Text}>Sobre nós</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.textContainer} >
+            <TouchableOpacity style={styles.textContainer} onPress={() => navigation.navigate('Regras')}>
                 <Text style={styles.Text}>Regras</Text>
             </TouchableOpacity>
 

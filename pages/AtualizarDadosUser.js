@@ -1,59 +1,236 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert, ActivityIndicator, ScrollView } from 'react-native';
 import NavbarPadrao from '../components/NavbarPadrao';
 import Feather from '@expo/vector-icons/Feather';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { TextInputMask } from 'react-native-masked-text';
 
-export default function LocalizacaoCarro() {
+// Função para formatar a data sem alterar o fuso horário
+const formatDateToInput = (dateString) => {
+    if (dateString) {
+        return dateString.split('T')[0].split('-').reverse().join('/');
+    }
+    return '';
+};
+
+// Função para formatar a data no formato YYYY-MM-DD (para envio ao backend)
+const formatDateForBackend = (dateString) => {
+    return dateString.split('/').reverse().join('-');
+};
+
+export default function AtualizarDadosUser() {
+    const navigation = useNavigation();
+
+    const [id, setId] = useState('');
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [nascimento, setNascimento] = useState('');
+    const [senha, setSenha] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [estado, setEstado] = useState('');
+    const [foto, setFoto] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const loadUserData = async () => {
+            try {
+                const storedId = await AsyncStorage.getItem('id');
+                const storedNome = await AsyncStorage.getItem('nome');
+                const storedEmail = await AsyncStorage.getItem('email');
+                const storedCpf = await AsyncStorage.getItem('cpf');
+                const storedTelefone = await AsyncStorage.getItem('telefone');
+                const storedCidade = await AsyncStorage.getItem('cidade');
+                const storedEstado = await AsyncStorage.getItem('estado');
+                const storedNascimento = await AsyncStorage.getItem('nascimento');
+                const storedFoto = await AsyncStorage.getItem('foto');
+
+                if (storedId) setId(storedId);
+                if (storedNome) setNome(storedNome);
+                if (storedEmail) setEmail(storedEmail);
+                if (storedCpf) setCpf(storedCpf);
+                if (storedTelefone) setTelefone(storedTelefone);
+                if (storedCidade) setCidade(storedCidade);
+                if (storedEstado) setEstado(storedEstado);
+                if (storedNascimento) setNascimento(formatDateToInput(storedNascimento));
+                if (storedFoto) setFoto(storedFoto);
+            } catch (error) {
+                console.error('Erro ao carregar os dados do usuário:', error);
+            }
+        };
+
+        loadUserData();
+    }, []);
+
+    const handleUpdate = async () => {
+        const token = await AsyncStorage.getItem('token');
+
+        const cpfSemFormatacao = cpf.replace(/\D/g, '');
+        const telSemFormatacao = telefone.replace(/\D/g, '');
+        const nascimentoFormatado = formatDateForBackend(nascimento);
+
+        // Verifica se a data é válida
+        const nascimentoDate = new Date(nascimentoFormatado);
+        if (isNaN(nascimentoDate.getTime())) {
+            Alert.alert('Erro', 'Data de nascimento inválida.');
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            const response = await fetch(`https://pi3-backend-i9l3.onrender.com/usuarios/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    nome,
+                    email,
+                    cpf: cpfSemFormatacao,
+                    telefone: telSemFormatacao,
+                    cidade,
+                    estado,
+                    nascimento: nascimentoFormatado,
+                }),
+            });
+
+            if (response.ok) {
+                await AsyncStorage.setItem('nome', nome);
+                await AsyncStorage.setItem('email', email);
+                await AsyncStorage.setItem('cpf', cpfSemFormatacao);
+                await AsyncStorage.setItem('telefone', telSemFormatacao);
+                await AsyncStorage.setItem('cidade', cidade);
+                await AsyncStorage.setItem('estado', estado);
+                await AsyncStorage.setItem('nascimento', nascimentoFormatado);
+
+                Alert.alert('Sucesso', 'Dados atualizados com sucesso!');
+                navigation.navigate('Home');
+            } else {
+                const errorText = await response.text();
+                Alert.alert('Erro', `Falha ao atualizar dados: ${errorText}`);
+                console.log(errorText);
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            Alert.alert('Erro', 'Ocorreu um erro ao atualizar. Tente novamente.');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <View style={styles.container}>
             <NavbarPadrao texto="Atualizar Meus Dados" />
-            <View style={styles.container2}>
+
+            <ScrollView style={styles.container2}>
                 <View style={styles.image}>
                     <TouchableOpacity>
                         <Image
-                            source={require('../assets/images/avatar-hidan.jpg')}
+                            source={foto ? { uri: foto } : require('../assets/images/nophoto.jpg')}
                             style={styles.perfilImage}
                         />
-                        <Text >
-                            <Feather name="edit-2" size={24} color="black" />
+                        <Text>
+                            <Feather name="edit-2" size={23} color="black" />
                             Editar
                         </Text>
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.headerContainer}>
-                    {/* <Text style={styles.primeira}>Primeira Etapa</Text> */}
-                    {/* <Text style={styles.localiza}>Onde se localiza o Carro?</Text> */}
-                </View>
+                <View style={styles.headerContainer}></View>
 
                 <View style={styles.formContainer}>
                     <View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Nome"
+                            value={nome}
+                            onChangeText={setNome}
+                        />
+                        <View style={styles.row}>
+                            <TextInputMask
+                                type={'cpf'}
+                                style={[styles.input, styles.cidadeEstado]}
+                                placeholder="CPF"
+                                value={cpf}
+                                onChangeText={setCpf}
+                            />
+                            <TextInputMask
+                                type={'datetime'}
+                                options={{ format: 'DD/MM/YYYY' }}
+                                style={styles.input}
+                                placeholder="Data de Nascimento"
+                                value={nascimento}
+                                onChangeText={setNascimento}
+                            />
+                        </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Email"
+                            value={email}
+                            onChangeText={setEmail}
+                        />
 
-                        <TextInput style={styles.input} placeholder="Nome" />
                         <View style={styles.row}>
-                            <TextInput style={[styles.input, styles.cidadeEstado]} placeholder="CPF" />
-                            <TextInput style={[styles.input, styles.cidadeEstado]} placeholder="Data de Nascimento" />
+                            <TextInput
+                                style={[styles.input, styles.cidadeEstado]}
+                                placeholder="Cidade"
+                                value={cidade}
+                                onChangeText={setCidade}
+                            />
+                            <TextInput
+                                style={[styles.input, styles.cidadeEstado]}
+                                placeholder="Estado"
+                                value={estado}
+                                onChangeText={setEstado}
+                            />
                         </View>
-                        <TextInput style={styles.input} placeholder="Email" />
+
+                        <TextInputMask
+                            type={'cel-phone'}
+                            options={{
+                                maskType: 'BRL',
+                                withDDD: true,
+                                dddMask: '(99) '
+                            }}
+                            style={styles.input}
+                            placeholder="Telefone"
+                            value={telefone}
+                            onChangeText={setTelefone}
+                            keyboardType='numeric'
+                        />
                         <View style={styles.row}>
-                            <TextInput style={[styles.input, styles.cidadeEstado]} placeholder="Cidade" />
-                            <TextInput style={[styles.input, styles.cidadeEstado]} placeholder="Estado" />
-                        </View>
-                        <TextInput style={styles.input} placeholder="Telefone" />
-                        <View style={styles.row}>
-                            <TextInput style={[styles.input, styles.cidadeEstado]} placeholder="Senha" />
-                            <TextInput style={[styles.input, styles.cidadeEstado]} placeholder="Confirmar Senha" />
+                            <TextInput
+                                style={[styles.input, styles.senha]}
+                                placeholder="Senha"
+                                secureTextEntry
+                                value={senha}
+                                onChangeText={setSenha}
+                            />
+                            <TouchableOpacity>
+                                <Feather name="edit-2" size={24} color="black" />
+                            </TouchableOpacity>
                         </View>
                     </View>
 
-                    <TouchableOpacity style={styles.proxButton} >
-                        <Text style={styles.buttonText}>Confirmar</Text>
+                    <TouchableOpacity
+                        style={styles.proxButton}
+                        onPress={handleUpdate}
+                    >
+                        {loading ? (
+                            <ActivityIndicator size="large" color="#fff" />
+                        ) : (
+                            <Text style={styles.buttonText}>Confirmar</Text>
+                        )}
                     </TouchableOpacity>
                 </View>
-            </View>
+            </ScrollView>
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -69,19 +246,6 @@ const styles = StyleSheet.create({
     headerContainer: {
         marginBottom: 30,
     },
-    primeira: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        paddingTop: 80
-    },
-    localiza: {
-        fontSize: 16,
-        textAlign: 'left',
-        fontWeight: 'bold',
-        paddingTop: 50,
-        color: 'red'
-    },
     formContainer: {
         flex: 1,
         justifyContent: 'space-between'
@@ -89,6 +253,7 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center'
     },
     input: {
         height: 40,
@@ -101,18 +266,15 @@ const styles = StyleSheet.create({
     cidadeEstado: {
         width: '48%',
     },
-    lograd: {
-        width: '70%',
-    },
-    num: {
-        width: '28%',
+    senha: {
+        width: '90%',
     },
     proxButton: {
         backgroundColor: '#ff0000',
         padding: 15,
         borderRadius: 5,
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 170,
     },
     buttonText: {
         color: '#fff',

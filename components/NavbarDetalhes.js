@@ -1,23 +1,39 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function NavbarDetalhes({texto}) {
+export default function NavbarDetalhes(props) {
+  const navigation = useNavigation();
+
+  // console.log("Props na NavbarDetalhes:", props);
+
+  const handleNavigateToVendedor = () => {
+    if (props.vendedor) {
+      navigation.navigate('DetalhesVendedor', { usuarioId: props.vendedor });
+    } else {
+      console.warn("Vendedor não encontrado");
+    }
+  };
+
+  const handleNavigateToVeiculo = async () => {
+    navigation.navigate('Anuncio', { veiculo: props.veiculo });
+
+  };
+
   return (
     <View style={styles.navbarContainer}>
       <View style={styles.titleContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.titleText}>Detalhes do {texto}</Text>
+        <Text style={styles.titleText}>Detalhes do {props.texto}</Text>
       </View>
-
       <View style={styles.navbar}>
-        <TouchableOpacity style={[styles.navItem]}>
+        <TouchableOpacity style={styles.navItem} onPress={handleNavigateToVeiculo}>
           <Text style={styles.navText}>Veículo</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity style={[styles.navItem]}>
+        <TouchableOpacity style={styles.navItem} onPress={handleNavigateToVendedor}>
           <Text style={styles.navText}>Vendedor</Text>
         </TouchableOpacity>
       </View>
@@ -28,9 +44,9 @@ export default function NavbarDetalhes({texto}) {
 const styles = StyleSheet.create({
   navbarContainer: {
     backgroundColor: '#fff',
-    borderTopWidth:20,
+    borderTopWidth: 20,
     borderColor: 'transparent',
-    elevation:10
+    elevation: 10,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -41,7 +57,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 18,
     marginLeft: 20,
-    fontWeight:'bold'
+    fontWeight: 'bold',
   },
   navbar: {
     flexDirection: 'row',
@@ -55,10 +71,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     padding: 15,
-    gap: 6
   },
   navText: {
     fontSize: 16,
-    fontWeight:'bold'
-  }
+    fontWeight: 'bold',
+  },
 });

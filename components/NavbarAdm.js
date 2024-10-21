@@ -1,8 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-
 import logoImg from '../assets/images/logo.png'
 import avatar from '../assets/images/avatar-hidan.jpg'
+import { useNavigation } from '@react-navigation/native';
+
 export default function NavbarAdm({ user, vend }) {
+
+    const navigation = useNavigation();
 
     return (
         <View style={styles.navbarContainer}>
@@ -15,13 +18,13 @@ export default function NavbarAdm({ user, vend }) {
             </View>
 
             <View style={styles.navbar}>
-                <TouchableOpacity style={[styles.navItem]}>
+                <TouchableOpacity style={[styles.navItem]}  onPress={() => navigation.navigate('UsuarioAdm')}>
                     {user === true ?
                         <Text style={styles.navTextAct}>Usuários</Text>
                         : <Text style={styles.navText}>Usuários</Text>}
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.navItem]}>
+                <TouchableOpacity style={[styles.navItem]} onPress={() => navigation.navigate('VendedorAdm')}>
                     {vend === true ?
                         <Text style={styles.navTextAct}>Vendedores</Text>
                         : <Text style={styles.navText}>Vendedores</Text>}

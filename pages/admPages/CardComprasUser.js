@@ -11,7 +11,7 @@ export default function CardMinhasCompras() {
             <View style={styles.card}>
                 <Image
                     style={styles.image}
-                    source={require('../assets/images/imageCard.png')}
+                    source={require('../../assets/images/imageCard.png')}
                 />
                 <View style={styles.infos}>
 
@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
         elevation: 10,
         backgroundColor: 'white',
         alignItems: 'center',
-        padding: 10
+        padding: 10,
+        borderRadius: 20
     },
     image: {
         width: 150,
@@ -49,8 +50,7 @@ const styles = StyleSheet.create({
     infos: {
         paddingLeft: 9,
         paddingBottom: 5,
-        // alignItems:'center',
-        gap:8,
+        gap: 5,
         width:'60%'
     },
     madelo: {
@@ -69,21 +69,11 @@ const styles = StyleSheet.create({
     preco: {
         fontWeight: 'bold'
     },
-    button: {
-        // width: '80%',
-        // paddingVertical: 15,
-        borderRadius: 5,
-        backgroundColor: 'red',
-        alignItems: 'center',
-        // marginBottom: 20,
-        elevation: 3,
-    },
+    
     text: {
         fontSize: 10,
-        // lineHeight: 21,
         fontWeight: 'bold',
         padding: 6,
-        // letterSpacing: 0.25,
         color: 'white'
     },
 
