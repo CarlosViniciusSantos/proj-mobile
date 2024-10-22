@@ -71,6 +71,7 @@ export default function AtualizarDadosUser() {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             aspect: [1, 1], // Aspecto quadrado para foto de perfil
             quality: 1,
+            allowsEditing: true
         });
 
         if (!result.canceled) {

@@ -35,6 +35,7 @@ export default function Vendedores() {
                         <CardUser
                             key={usuario.id}
                             id={usuario.id}
+                            foto={usuario.foto_perfil}
                             nome={usuario.nome}
                             email={usuario.email}
                             cpf={usuario.cpf}

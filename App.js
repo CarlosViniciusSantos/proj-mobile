@@ -47,7 +47,7 @@ export default function App() {
       const route = navigationRef.getCurrentRoute();
       setCurrentRoute(route?.name);
     }}>
-      <Stack.Navigator initialRouteName="Login" screenOptions={({ route }) => ({
+      <Stack.Navigator initialRouteName="MeusVeiculos" screenOptions={({ route }) => ({
           headerShown: false,
         })}
       >

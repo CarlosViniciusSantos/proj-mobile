@@ -18,7 +18,7 @@ export default function NavbarAdm({ user, vend }) {
         React.useCallback(() => {
             const fetchNome = async () => {
                 const userName = await AsyncStorage.getItem('nome');
-                const userFotoPerfil = await AsyncStorage.getItem('foto_perfil');
+                const userFotoPerfil = await AsyncStorage.getItem('foto');
                 if (userName) {
                     setNome(userName);
                 }
@@ -39,12 +39,13 @@ export default function NavbarAdm({ user, vend }) {
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 aspect: [1, 1], // Imagem quadrada para perfil
                 quality: 1,
+                allowsEditing:true
             });
 
             if (!result.canceled) {
                 const selectedImageUri = result.assets[0].uri; // Armazena a URI da imagem selecionada
                 setFoto_perfil(selectedImageUri);
-                await AsyncStorage.setItem('foto_perfil', selectedImageUri); // Salva a nova foto no AsyncStorage
+                await AsyncStorage.setItem('foto', selectedImageUri); // Salva a nova foto no AsyncStorage
 
                 // Agora, envie a imagem para o backend
                 await uploadFotoPerfil(selectedImageUri);

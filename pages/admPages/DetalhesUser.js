@@ -59,7 +59,7 @@ export default function DetalhesUser() {
             <View style={styles.details1Container}>
                 <Image
                     style={styles.image}
-                    source={foto ? { uri: foto } : require('../../assets/images/avatar-hidan.jpg')}
+                    source={foto ? { uri: foto } : require('../../assets/images/nophoto.jpg')}
                 />
                 <Text style={styles.name}>Nome: {nome}</Text>
                 <Text style={styles.location}>Contato: {telefone}</Text>
