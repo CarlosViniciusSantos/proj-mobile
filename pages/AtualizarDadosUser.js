@@ -5,6 +5,7 @@ import Feather from '@expo/vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { TextInputMask } from 'react-native-masked-text';
+import * as ImagePicker from 'expo-image-picker'; // Import ImagePicker
 
 // Função para formatar a data sem alterar o fuso horário
 const formatDateToInput = (dateString) => {
@@ -28,10 +29,10 @@ export default function AtualizarDadosUser() {
     const [cpf, setCpf] = useState('');
     const [telefone, setTelefone] = useState('');
     const [nascimento, setNascimento] = useState('');
-    const [senha, setSenha] = useState('');
     const [cidade, setCidade] = useState('');
     const [estado, setEstado] = useState('');
-    const [foto, setFoto] = useState('');
+    const [foto, setFoto] = useState(''); // URL da foto do perfil
+    const [imageUri, setImageUri] = useState(null); // URI da nova imagem selecionada
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -64,40 +65,65 @@ export default function AtualizarDadosUser() {
         loadUserData();
     }, []);
 
+    // Função para selecionar imagem
+    const handleImagePicker = async () => {
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            aspect: [1, 1], // Aspecto quadrado para foto de perfil
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            setImageUri(result.assets[0].uri); // Armazena a URI da imagem selecionada
+        }
+    };
+
     const handleUpdate = async () => {
         const token = await AsyncStorage.getItem('token');
-
+    
         const cpfSemFormatacao = cpf.replace(/\D/g, '');
         const telSemFormatacao = telefone.replace(/\D/g, '');
         const nascimentoFormatado = formatDateForBackend(nascimento);
-
+    
         // Verifica se a data é válida
         const nascimentoDate = new Date(nascimentoFormatado);
         if (isNaN(nascimentoDate.getTime())) {
             Alert.alert('Erro', 'Data de nascimento inválida.');
             return;
         }
-
+    
         setLoading(true);
-
+    
         try {
+            const formData = new FormData();
+            formData.append('nome', nome);
+            formData.append('email', email);
+            formData.append('cpf', cpfSemFormatacao);
+            formData.append('telefone', telSemFormatacao);
+            formData.append('cidade', cidade);
+            formData.append('estado', estado);
+            formData.append('nascimento', nascimentoFormatado);
+    
+            // Se houver imagem selecionada, adiciona ao FormData
+            if (imageUri) {
+                const fileName = imageUri.split('/').pop();
+                const match = /\.(\w+)$/.exec(fileName);
+                const fileType = match ? `image/${match[1]}` : `image`;
+                formData.append('foto_perfil', { // Usar o nome 'foto_perfil' como esperado pelo backend
+                    uri: imageUri,
+                    name: fileName,
+                    type: fileType,
+                });
+            }
+    
             const response = await fetch(`https://pi3-backend-i9l3.onrender.com/usuarios/${id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`, // Apenas o Authorization
                 },
-                body: JSON.stringify({
-                    nome,
-                    email,
-                    cpf: cpfSemFormatacao,
-                    telefone: telSemFormatacao,
-                    cidade,
-                    estado,
-                    nascimento: nascimentoFormatado,
-                }),
+                body: formData, // O FormData cuida do multipart/form-data
             });
-
+    
             if (response.ok) {
                 await AsyncStorage.setItem('nome', nome);
                 await AsyncStorage.setItem('email', email);
@@ -106,7 +132,12 @@ export default function AtualizarDadosUser() {
                 await AsyncStorage.setItem('cidade', cidade);
                 await AsyncStorage.setItem('estado', estado);
                 await AsyncStorage.setItem('nascimento', nascimentoFormatado);
-
+    
+                // Atualiza a foto no AsyncStorage se a imagem foi trocada
+                if (imageUri) {
+                    await AsyncStorage.setItem('foto', imageUri);
+                }
+    
                 Alert.alert('Sucesso', 'Dados atualizados com sucesso!');
                 navigation.navigate('Home');
             } else {
@@ -121,6 +152,7 @@ export default function AtualizarDadosUser() {
             setLoading(false);
         }
     };
+    
 
     return (
         <View style={styles.container}>
@@ -128,9 +160,10 @@ export default function AtualizarDadosUser() {
 
             <ScrollView style={styles.container2}>
                 <View style={styles.image}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={handleImagePicker}>
+                        {/* Exibe a imagem do usuário ou a nova imagem selecionada */}
                         <Image
-                            source={foto ? { uri: foto } : require('../assets/images/nophoto.jpg')}
+                            source={imageUri ? { uri: imageUri } : foto ? { uri: foto } : require('../assets/images/nophoto.jpg')}
                             style={styles.perfilImage}
                         />
                         <Text>
@@ -202,7 +235,6 @@ export default function AtualizarDadosUser() {
                             onChangeText={setTelefone}
                             keyboardType='numeric'
                         />
-                        
                     </View>
 
                     <TouchableOpacity
@@ -255,15 +287,12 @@ const styles = StyleSheet.create({
     cidadeEstado: {
         width: '48%',
     },
-    senha: {
-        width: '90%',
-    },
     proxButton: {
         backgroundColor: '#ff0000',
         padding: 15,
         borderRadius: 5,
         alignItems: 'center',
-        marginTop: 170,
+        marginTop: 220,
     },
     buttonText: {
         color: '#fff',

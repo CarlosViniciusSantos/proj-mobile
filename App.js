@@ -21,7 +21,6 @@ import MinhasCompras from './pages/MinhasCompras';
 import RegistroAdm from './pages/admPages/RegistroAdm';
 import CadastrarVeiculo from './pages/CadastrarVeiculo';
 import Usuarios from './pages/admPages/Usuarios';
-import Teste from './pages/TestImage'
 import TesteV from './pages/TesteCadVeic'
 import Vendedores from './pages/admPages/Vendedores';
 import DetalhesUser from './pages/admPages/DetalhesUser';
@@ -48,7 +47,7 @@ export default function App() {
       const route = navigationRef.getCurrentRoute();
       setCurrentRoute(route?.name);
     }}>
-      <Stack.Navigator initialRouteName="TesteV" screenOptions={({ route }) => ({
+      <Stack.Navigator initialRouteName="Login" screenOptions={({ route }) => ({
           headerShown: false,
         })}
       >
@@ -72,7 +71,6 @@ export default function App() {
         <Stack.Screen name="UsuarioAdm" component={Usuarios} />
         <Stack.Screen name="VendedorAdm" component={Vendedores} />
         <Stack.Screen name="DetalhesUser" component={DetalhesUser} />
-        <Stack.Screen name="Teste" component={Teste} />
         <Stack.Screen name="TesteV" component={TesteV} />
       </Stack.Navigator>
 

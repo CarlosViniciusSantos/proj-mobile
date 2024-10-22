@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import NavbarPadrao from '../components/NavbarPadrao';
 import { useNavigation } from '@react-navigation/native';
@@ -27,40 +27,41 @@ export default function CadastrarVeiculo() {
   const [txtDescricao, setTxtDescricao] = useState('');
 
   const [imageUri, setImageUri] = useState(null);
+  const [loading, setLoading] = useState(false); // Estado para controlar o loading
 
   const handlerCreateCar = async () => {
+    setLoading(true); // Inicia o loading
     const id = await AsyncStorage.getItem('id');
 
-    const veiculo = {
-      cep: txtCep,
-      cidade: txtCidade,
-      estado: txtEstado,
-      logradouro: txtLogradouro,
-      numero: txtNumero,
-      complemento: txtComplemento,
-      marca: txtMarca,
-      modelo: txtModelo,
-      valor: parseInt(txtValor),
-      anoFabricacao: parseInt(txtAnoFabricacao),
-      cambio: txtCambio,
-      carroceria: txtCarroceria,
-      combustivel: txtCombustivel,
-      km: parseInt(txtKm),
-      cor: txtCor,
-      descricao: txtDescricao,
-      usuarioId: id,
-      // foto: "https://foto.png"
-      if(imageUri) {
-        const fileName = imageUri.split('/').pop();
-        const match = /\.(\w+)$/.exec(fileName);
-        const fileType = match ? `image/${match[1]}` : `image`;
-        formData.append('foto', {
-          uri: imageUri,
-          name: fileName,
-          type: fileType,
-        });
-      }
-    };
+    const formData = new FormData();
+    formData.append('cep', txtCep);
+    formData.append('cidade', txtCidade);
+    formData.append('estado', txtEstado);
+    formData.append('logradouro', txtLogradouro);
+    formData.append('numero', txtNumero);
+    formData.append('complemento', txtComplemento);
+    formData.append('marca', txtMarca);
+    formData.append('modelo', txtModelo);
+    formData.append('valor', parseInt(txtValor));
+    formData.append('anoFabricacao', parseInt(txtAnoFabricacao));
+    formData.append('cambio', txtCambio);
+    formData.append('carroceria', txtCarroceria);
+    formData.append('combustivel', txtCombustivel);
+    formData.append('km', parseInt(txtKm));
+    formData.append('cor', txtCor);
+    formData.append('descricao', txtDescricao);
+    formData.append('usuarioId', id);
+
+    if (imageUri) {
+      const fileName = imageUri.split('/').pop();
+      const match = /\.(\w+)$/.exec(fileName);
+      const fileType = match ? `image/${match[1]}` : `image`;
+      formData.append('foto', {
+        uri: imageUri,
+        name: fileName,
+        type: fileType,
+      });
+    }
 
     try {
       const response = await fetch('https://pi3-backend-i9l3.onrender.com/veiculos', {
@@ -68,7 +69,7 @@ export default function CadastrarVeiculo() {
         headers: {
           'Content-Type': 'multipart/form-data', // Importante para upload de arquivo
         },
-        body: JSON.stringify(veiculo)
+        body: formData,
       });
 
       if (response.ok) {
@@ -76,11 +77,13 @@ export default function CadastrarVeiculo() {
         console.log(data);
         navigation.navigate('Home');
       } else {
-        const responseBody = await response.text(); // Ler o corpo da resposta
+        const responseBody = await response.text();
         console.error("Erro ao carregar carros:", response.status, responseBody);
       }
     } catch (error) {
       console.error("Erro ao registrar carro:", error);
+    } finally {
+      setLoading(false); // Finaliza o loading
     }
   }
 
@@ -147,7 +150,15 @@ export default function CadastrarVeiculo() {
           />
           <Text style={styles.sectionTitle}>Fotos do Veículo</Text>
 
-          <Feather name="image" size={24} color="black" onPress={handleImagePicker}/>
+          <View style={styles.row2}>
+            <Feather name="image" size={40} color="black" onPress={handleImagePicker} />
+            <Feather name="image" size={40} color="black" onPress={handleImagePicker} />
+            <Feather name="image" size={40} color="black" onPress={handleImagePicker} />
+            <Feather name="image" size={40} color="black" onPress={handleImagePicker} />
+            <Feather name="image" size={40} color="black" onPress={handleImagePicker} />
+            <Feather name="image" size={40} color="black" onPress={handleImagePicker} />
+            <Feather name="image" size={40} color="black" onPress={handleImagePicker} />
+          </View>
 
           {imageUri && <Image source={{ uri: imageUri }} style={styles.imagePreview} />}
 
@@ -221,8 +232,14 @@ export default function CadastrarVeiculo() {
             value={txtDescricao}
             multiline
           />
-          <TouchableOpacity style={styles.confirmButton} onPress={handlerCreateCar}>
-            <Text style={styles.confirmButtonText}>Confirmar</Text>
+          <TouchableOpacity 
+            style={[styles.confirmButton, { opacity: loading ? 0.5 : 1 }]} 
+            onPress={handlerCreateCar} 
+            disabled={loading} // Desativa o botão durante o carregamento
+          >
+            <Text style={styles.confirmButtonText}>
+              {loading ? 'Carregando...' : 'Confirmar'}
+            </Text>
           </TouchableOpacity>
         </ScrollView>
       </View>
@@ -287,5 +304,9 @@ const styles = StyleSheet.create({
     height: 200,
     marginVertical: 10,
     borderRadius: 10,
-},
+  },
+  row2: {
+    flexDirection: 'row',
+    gap: 10
+  },
 });

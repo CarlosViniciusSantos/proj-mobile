@@ -1,11 +1,25 @@
-// FooterVendas.js
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { Linking } from 'react-native';
 
 export default function FooterVendas({ teste, veiculo }) {
   const navigation = useNavigation();
+
+  const openWhatsApp = (phoneNumber) => {
+    const url = `whatsapp://send?phone=${phoneNumber}`;
+    
+    Linking.canOpenURL(url)
+      .then(supported => {
+        if (!supported) {
+          console.log('WhatsApp não está instalado ou o link é inválido');
+        } else {
+          return Linking.openURL(url);
+        }
+      })
+      .catch(err => console.error('Erro ao abrir o WhatsApp:', err));
+  };  
 
   return (
     <View style={styles.footerContainer}>
@@ -18,8 +32,8 @@ export default function FooterVendas({ teste, veiculo }) {
           <Text style={styles.buttonText}>Comprar</Text>
         </TouchableOpacity>
       ) : null}
-      <TouchableOpacity style={styles.cllButton}>
-        <Ionicons name="call" size={24} color="white" />
+      <TouchableOpacity style={styles.cllButton} onPress={() => openWhatsApp('551299105-3552')}>
+        <Ionicons name="logo-whatsapp" size={24} color="white" />
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.messageButton} onPress={() => navigation.navigate('Enviar')}>

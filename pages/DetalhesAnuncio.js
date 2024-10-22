@@ -146,7 +146,7 @@ export default function DetalhesAnuncio() {
       <View style={styles.details1Container}>
         <Image
           style={styles.image}
-          source={vendedor?.foto ? { uri: vendedor.foto } : require('../assets/images/avatar-hidan.jpg')}
+          source={vendedor?.foto_perfil ? { uri: vendedor.foto_perfil } : require('../assets/images/nophoto.jpg')}
         />
         <Text style={styles.name}>Vendedor: {vendedor?.nome}</Text>
         <Text style={styles.location}>Contato: {vendedor?.telefone}</Text>
