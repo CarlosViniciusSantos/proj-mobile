@@ -10,35 +10,54 @@ export default function AtualizarDadosCarro() {
   const navigation = useNavigation();
   const route = useRoute();
   const { veiculoId } = route.params; // Pegando o id do veículo a partir da rota
+  console.log(veiculoId)
 
-  const [veiculoData, setVeiculoData] = useState({
-    cep: '',
-    cidade: '',
-    estado: '',
-    logradouro: '',
-    numero: '',
-    complemento: '',
-    marca: '',
-    modelo: '',
-    valor: '',
-    anoFabricacao: '',
-    cambio: '',
-    carroceria: '',
-    combustivel: '',
-    km: '',
-    cor: '',
-    descricao: '',
-  });
+  const [id, setId] = useState('');
+  const [cep, setCep] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [estado, setEstado] = useState('');
+  const [logradouro, setLogradouro] = useState('');
+  const [numero, setNumero] = useState('');
+  const [complemento, setComplemento] = useState('');
+  const [marca, setMarca] = useState('');
+  const [modelo, setModelo] = useState('');
+  const [valor, setValor] = useState('');
+  const [anoFabricacao, setAnoFabricacao] = useState('');
+  const [cambio, setCambio] = useState('');
+  const [carroceria, setCarroceria] = useState('');
+  const [combustivel, setCombustivel] = useState('');
+  const [km, setKm] = useState('');
+  const [cor, setCor] = useState('');
+  const [descricao, setDescricao] = useState('');
   const [imageUri, setImageUri] = useState(null); // Nova imagem para atualizar
   const [loading, setLoading] = useState(false); // Estado para controlar o loading
 
   useEffect(() => {
     const carregarDadosVeiculo = async () => {
       try {
-        const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${veiculoId.toString()}`); // Convertendo veiculoId para string
+        const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${id}`); // Convertendo veiculoId para string
         if (response.ok) {
           const data = await response.json();
-          setVeiculoData(data); // Supondo que os dados do veículo vêm diretamente
+
+          if (data.id) setId(data.id);
+          if (data.cep) setCep(data.cep);
+          if (data.cidade) setCidade(data.cidade);
+          if (data.estado) setEstado(data.estado);
+          if (data.logradouro) setLogradouro(data.logradouro);
+          if (data.numero) setNumero(data.numero);
+          if (data.complemento) setComplemento(data.complemento);
+          if (data.marca) setMarca(data.marca);
+          if (data.modelo) setModelo(data.modelo);
+          if (data.valor) setValor(data.valor); // Mantém como int
+          if (data.anoFabricacao) setAnoFabricacao(data.anoFabricacao); // Mantém como int
+          if (data.cambio) setCambio(data.cambio);
+          if (data.carroceria) setCarroceria(data.carroceria);
+          if (data.combustivel) setCombustivel(data.combustivel);
+          if (data.km) setKm(data.km); // Mantém como int
+          if (data.cor) setCor(data.cor);
+          if (data.descricao) setDescricao(data.descricao);
+          if (data.foto) setImageUri(data.foto); // Caso tenha uma imagem, preenche o URI
+          
         } else {
           const responseText = await response.text();
           console.error('Erro ao carregar dados do veículo:', response.status, responseText);
@@ -49,7 +68,7 @@ export default function AtualizarDadosCarro() {
     };
 
     carregarDadosVeiculo();
-  }, [veiculoId]);
+  }, []);
 
   // Função para selecionar uma nova foto
   const handleImagePicker = async () => {
@@ -57,6 +76,7 @@ export default function AtualizarDadosCarro() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       aspect: [4, 4],
       quality: 1,
+      allowsEditing: true
     });
 
     if (!result.canceled) {
@@ -70,22 +90,22 @@ export default function AtualizarDadosCarro() {
     const id = await AsyncStorage.getItem('id');
 
     const formData = new FormData();
-    formData.append('cep', veiculoData.cep);
-    formData.append('cidade', veiculoData.cidade);
-    formData.append('estado', veiculoData.estado);
-    formData.append('logradouro', veiculoData.logradouro);
-    formData.append('numero', veiculoData.numero);
-    formData.append('complemento', veiculoData.complemento);
-    formData.append('marca', veiculoData.marca);
-    formData.append('modelo', veiculoData.modelo);
-    formData.append('valor', parseInt(veiculoData.valor));
-    formData.append('anoFabricacao', parseInt(veiculoData.anoFabricacao));
-    formData.append('cambio', veiculoData.cambio);
-    formData.append('carroceria', veiculoData.carroceria);
-    formData.append('combustivel', veiculoData.combustivel);
-    formData.append('km', parseInt(veiculoData.km));
-    formData.append('cor', veiculoData.cor);
-    formData.append('descricao', veiculoData.descricao);
+    formData.append('cep', cep);
+    formData.append('cidade', cidade);
+    formData.append('estado', estado);
+    formData.append('logradouro', logradouro);
+    formData.append('numero', numero);
+    formData.append('complemento', complemento);
+    formData.append('marca', marca);
+    formData.append('modelo', modelo);
+    formData.append('valor', parseInt(valor));
+    formData.append('anoFabricacao', parseInt(anoFabricacao));
+    formData.append('cambio', cambio);
+    formData.append('carroceria', carroceria);
+    formData.append('combustivel', combustivel);
+    formData.append('km', parseInt(km));
+    formData.append('cor', cor);
+    formData.append('descricao', descricao);
     formData.append('usuarioId', id);
 
     // Verifica se o usuário selecionou uma nova imagem e a adiciona ao formData
@@ -101,7 +121,7 @@ export default function AtualizarDadosCarro() {
     }
 
     try {
-      const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${veiculoId.toString()}`, { // Certifique-se de que o veiculoId seja uma string
+      const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${id}`, { // Certifique-se de que o veiculoId seja uma string
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data', // Importante para upload de arquivo
@@ -134,22 +154,22 @@ export default function AtualizarDadosCarro() {
           <TextInput
             style={styles.input}
             placeholder="CEP"
-            value={veiculoData.cep}
-            onChangeText={(cep) => setVeiculoData({ ...veiculoData, cep })}
+            value={cep}
+            onChangeText={setCep}
           />
 
           <View style={styles.row}>
             <TextInput
               style={[styles.input, styles.smallInput]}
               placeholder="Cidade"
-              value={veiculoData.cidade}
-              onChangeText={(cidade) => setVeiculoData({ ...veiculoData, cidade })}
+              value={cidade}
+              onChangeText={setCidade}
             />
             <TextInput
               style={[styles.input, styles.smallInput]}
               placeholder="Estado"
-              value={veiculoData.estado}
-              onChangeText={(estado) => setVeiculoData({ ...veiculoData, estado })}
+              value={estado}
+              onChangeText={setEstado}
             />
           </View>
 
@@ -157,22 +177,22 @@ export default function AtualizarDadosCarro() {
             <TextInput
               style={[styles.input, styles.largeInput]}
               placeholder="Logradouro"
-              value={veiculoData.logradouro}
-              onChangeText={(logradouro) => setVeiculoData({ ...veiculoData, logradouro })}
+              value={logradouro}
+              onChangeText={setLogradouro}
             />
             <TextInput
               style={[styles.input, styles.smallInput]}
               placeholder="Número"
-              value={veiculoData.numero}
-              onChangeText={(numero) => setVeiculoData({ ...veiculoData, numero })}
+              value={numero}
+              onChangeText={setNumero}
             />
           </View>
 
           <TextInput
             style={styles.input}
             placeholder="Complemento"
-            value={veiculoData.complemento}
-            onChangeText={(complemento) => setVeiculoData({ ...veiculoData, complemento })}
+            value={complemento}
+            onChangeText={setComplemento}
           />
 
           <Text style={styles.sectionTitle}>Fotos do Veículo</Text>
@@ -194,27 +214,27 @@ export default function AtualizarDadosCarro() {
           <TextInput
             style={styles.input}
             placeholder="Marca"
-            value={veiculoData.marca}
-            onChangeText={(marca) => setVeiculoData({ ...veiculoData, marca })}
+            value={marca}
+            onChangeText={setMarca}
           />
           <TextInput
             style={styles.input}
             placeholder="Modelo"
-            value={veiculoData.modelo}
-            onChangeText={(modelo) => setVeiculoData({ ...veiculoData, modelo })}
+            value={modelo}
+            onChangeText={setModelo}
           />
           <TextInput
             style={styles.input}
             placeholder="Valor"
-            value={veiculoData.valor.toString()}
-            onChangeText={(valor) => setVeiculoData({ ...veiculoData, valor })}
+            value={valor}
+            onChangeText={setValor}
             keyboardType="numeric"
           />
           <TextInput
             style={styles.input}
             placeholder="Ano de Fabricação"
-            value={veiculoData.anoFabricacao.toString()}
-            onChangeText={(anoFabricacao) => setVeiculoData({ ...veiculoData, anoFabricacao })}
+            value={anoFabricacao}
+            onChangeText={setAnoFabricacao}
             keyboardType="numeric"
           />
 
@@ -222,14 +242,14 @@ export default function AtualizarDadosCarro() {
             <TextInput
               style={[styles.input, styles.smallInput]}
               placeholder="Câmbio"
-              value={veiculoData.cambio}
-              onChangeText={(cambio) => setVeiculoData({ ...veiculoData, cambio })}
+              value={cambio}
+              onChangeText={setCambio}
             />
             <TextInput
               style={[styles.input, styles.smallInput]}
               placeholder="Carroceria"
-              value={veiculoData.carroceria}
-              onChangeText={(carroceria) => setVeiculoData({ ...veiculoData, carroceria })}
+              value={carroceria}
+              onChangeText={setCarroceria}
             />
           </View>
 
@@ -237,36 +257,36 @@ export default function AtualizarDadosCarro() {
             <TextInput
               style={[styles.input, styles.smallInput]}
               placeholder="Km"
-              value={veiculoData.km.toString()}
-              onChangeText={(km) => setVeiculoData({ ...veiculoData, km })}
+              value={km}
+              onChangeText={setKm}
               keyboardType="numeric"
             />
             <TextInput
               style={[styles.input, styles.smallInput]}
               placeholder="Combustível"
-              value={veiculoData.combustivel}
-              onChangeText={(combustivel) => setVeiculoData({ ...veiculoData, combustivel })}
+              value={combustivel}
+              onChangeText={setCombustivel}
             />
           </View>
 
           <TextInput
             style={styles.input}
             placeholder="Cor"
-            value={veiculoData.cor}
-            onChangeText={(cor) => setVeiculoData({ ...veiculoData, cor })}
+            value={cor}
+            onChangeText={setCor}
           />
 
           <TextInput
             style={[styles.input, styles.description]}
             placeholder="Descrição do Veículo"
-            value={veiculoData.descricao}
-            onChangeText={(descricao) => setVeiculoData({ ...veiculoData, descricao })}
+            value={descricao}
+            onChangeText={setDescricao}
             multiline
           />
 
-          <TouchableOpacity 
-            style={[styles.confirmButton, { opacity: loading ? 0.5 : 1 }]} 
-            onPress={handleUpdateCar} 
+          <TouchableOpacity
+            style={[styles.confirmButton, { opacity: loading ? 0.5 : 1 }]}
+            onPress={handleUpdateCar}
             disabled={loading} // Desativa o botão durante o carregamento
           >
             <Text style={styles.confirmButtonText}>

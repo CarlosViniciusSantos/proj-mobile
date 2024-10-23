@@ -36,10 +36,10 @@ export default function MeusVeiculos() {
                         const response = await fetch('https://pi3-backend-i9l3.onrender.com/veiculos');
                         if (response.ok) {
                             const data = await response.json();
-                            console.log(data); // Verifique a estrutura da resposta da API
+                            // console.log(data); // Verifique a estrutura da resposta da API
 
                             const veiculosDoUsuario = data.veiculos.filter(veiculo => veiculo.usuarioId === userId);
-                            console.log('Veículos do Usuário:', veiculosDoUsuario); // Verifique os veículos do usuário
+                            // console.log('Veículos do Usuário:', veiculosDoUsuario); // Verifique os veículos do usuário
                             
                             setMeusVeiculos(veiculosDoUsuario);
                         } else {

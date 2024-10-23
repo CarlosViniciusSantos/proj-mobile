@@ -46,7 +46,7 @@ export default function App() {
       const route = navigationRef.getCurrentRoute();
       setCurrentRoute(route?.name);
     }}>
-      <Stack.Navigator initialRouteName="AdmRegistro" screenOptions={({ route }) => ({
+      <Stack.Navigator initialRouteName="Login" screenOptions={({ route }) => ({
           headerShown: false,
         })}
       >
