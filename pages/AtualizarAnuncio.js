@@ -35,28 +35,30 @@ export default function AtualizarDadosCarro() {
   useEffect(() => {
     const carregarDadosVeiculo = async () => {
       try {
-        const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${id}`); // Convertendo veiculoId para string
+        const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${veiculoId}`); // Convertendo veiculoId para string
         if (response.ok) {
           const data = await response.json();
+          console.log("data",data.veiculo)
+          const dados = data.veiculo
 
-          if (data.id) setId(data.id);
-          if (data.cep) setCep(data.cep);
-          if (data.cidade) setCidade(data.cidade);
-          if (data.estado) setEstado(data.estado);
-          if (data.logradouro) setLogradouro(data.logradouro);
-          if (data.numero) setNumero(data.numero);
-          if (data.complemento) setComplemento(data.complemento);
-          if (data.marca) setMarca(data.marca);
-          if (data.modelo) setModelo(data.modelo);
-          if (data.valor) setValor(data.valor); // Mantém como int
-          if (data.anoFabricacao) setAnoFabricacao(data.anoFabricacao); // Mantém como int
-          if (data.cambio) setCambio(data.cambio);
-          if (data.carroceria) setCarroceria(data.carroceria);
-          if (data.combustivel) setCombustivel(data.combustivel);
-          if (data.km) setKm(data.km); // Mantém como int
-          if (data.cor) setCor(data.cor);
-          if (data.descricao) setDescricao(data.descricao);
-          if (data.foto) setImageUri(data.foto); // Caso tenha uma imagem, preenche o URI
+          if (dados.id) setId(dados.id);
+          if (dados.cep) setCep(dados.cep);
+          if (dados.cidade) setCidade(dados.cidade);
+          if (dados.estado) setEstado(dados.estado);
+          if (dados.logradouro) setLogradouro(dados.logradouro);
+          if (dados.numero) setNumero(dados.numero);
+          if (dados.complemento) setComplemento(dados.complemento);
+          if (dados.marca) setMarca(dados.marca);
+          if (dados.modelo) setModelo(dados.modelo);
+          if (dados.valor) setValor(dados.valor); // Mantém como int
+          if (dados.anoFabricacao) setAnoFabricacao(dados.anoFabricacao); // Mantém como int
+          if (dados.cambio) setCambio(dados.cambio);
+          if (dados.carroceria) setCarroceria(dados.carroceria);
+          if (dados.combustivel) setCombustivel(dados.combustivel);
+          if (dados.km) setKm(dados.km); // Mantém como int
+          if (dados.cor) setCor(dados.cor);
+          if (dados.descricao) setDescricao(dados.descricao);
+          if (dados.foto) setImageUri(dados.foto); // Caso tenha uma imagem, preenche o URI
           
         } else {
           const responseText = await response.text();
