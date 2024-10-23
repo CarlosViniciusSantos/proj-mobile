@@ -30,7 +30,7 @@ export default function App() {
   const navigationRef = useNavigationContainerRef();
   const [currentRoute, setCurrentRoute] = useState();
 
-  const noFooterRoutes = ['Login', 'Registro', 'Enviar', 'AtualizarAnuncio', 'AtualizarDados', 'SobreNos', 'Anuncio', 'Comprar', 'AdmRegistro', 'CadastrarVeiculo', 'UsuarioAdm', 'DetalhesUser', 'Adm'];
+  const noFooterRoutes = ['Login', 'Registro', 'Enviar', 'AtualizarAnuncio', 'AtualizarDados', 'SobreNos', 'Anuncio', 'Comprar', 'AdmRegistro', 'CadastrarVeiculo', 'UsuarioAdm', 'DetalhesUser', 'Adms'];
 
   useEffect(() => {
     const unsubscribe = navigationRef.addListener('state', () => {
@@ -46,7 +46,7 @@ export default function App() {
       const route = navigationRef.getCurrentRoute();
       setCurrentRoute(route?.name);
     }}>
-      <Stack.Navigator initialRouteName="Login" screenOptions={({ route }) => ({
+      <Stack.Navigator initialRouteName="AdmRegistro" screenOptions={({ route }) => ({
           headerShown: false,
         })}
       >

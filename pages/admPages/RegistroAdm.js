@@ -4,7 +4,8 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { TextInputMask } from 'react-native-masked-text';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import nophoto from '../../assets/images/nophoto.jpg';
+
+const nophoto = 'https://res.cloudinary.com/de0ujb8vh/image/upload/v1729706471/usuarios/default_profile_pic.webp'
 
 const RegistroAdm = ({ onRegister = () => { } }) => {
     const navigation = useNavigation();
@@ -48,7 +49,7 @@ const RegistroAdm = ({ onRegister = () => { } }) => {
                     nascimento: nascimentoFormatado,
                     senha,
                     isAdmin: true,
-                    foto_perfil: {nophoto},
+                    foto_perfil: nophoto,
                     cidade,
                     estado
                 }),
@@ -69,6 +70,8 @@ const RegistroAdm = ({ onRegister = () => { } }) => {
                 await AsyncStorage.setItem('nascimento', nascimentoFormatado);
                 await AsyncStorage.setItem('cidade', cidade);
                 await AsyncStorage.setItem('estado', estado);
+                await AsyncStorage.setItem('foto', nophoto);
+                await AsyncStorage.setItem('token', data.accessToken);
 
                 // Limpar os campos
                 setNome('');
