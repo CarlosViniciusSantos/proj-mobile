@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from 'expo-image';
 import { useNavigation } from '@react-navigation/native';
 import Feather from '@expo/vector-icons/Feather';
-import ExcluirVeiculoModal from '../../components/ModalExcluirVeiculo';
+import ExcluirVeiculoModal from './ModalExcluirVeiculo';
 
 export default function CardMeuVeiculo({ id, marca, modelo, valor, foto, cor, anoFabricacao }) {
   const navigation = useNavigation();

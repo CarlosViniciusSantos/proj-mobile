@@ -5,8 +5,8 @@ import NavbarPadrao from '../../components/NavbarPadrao';
 import Feather from '@expo/vector-icons/Feather';
 import ExcluirModal from '../../components/ModalExcluir';
 // Importações só serão usadas se o usuário não for admin
-import CardVeiculoUser from '../admPages/CardVeiculoUser';
-import CardComprasUser from '../admPages/CardComprasUser';
+import CardVeiculoUser from '../../components/admComponents/CardVeiculoUser';
+import CardComprasUser from '../../components/admComponents/CardComprasUser';
 
 export default function DetalhesUser() {
     const route = useRoute();  // Acessa os parâmetros da navegação

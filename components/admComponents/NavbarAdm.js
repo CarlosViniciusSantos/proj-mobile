@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
-import logoImg from '../assets/images/logo.png';
-import avatar from '../assets/images/avatar-hidan.jpg'; // Imagem padrão
+import logoImg from '../../assets/images/logo.png';
+import avatar from '../../assets/images/avatar-hidan.jpg'; // Imagem padrão
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
@@ -118,7 +118,7 @@ export default function NavbarAdm({ user, vend }) {
                         : <Text style={styles.navText}>Usuários</Text>}
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.navItem]} onPress={() => navigation.navigate('VendedorAdm')}>
+                <TouchableOpacity style={[styles.navItem]} onPress={() => navigation.navigate('Adms')}>
                     {vend === true ?
                         <Text style={styles.navTextAct}>Administradores</Text>
                         : <Text style={styles.navText}>Administradores</Text>}

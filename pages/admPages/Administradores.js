@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import NavbarAdm from '../../components/NavbarAdm';
-import CardUser from '../../components/CardUser';
+import NavbarAdm from '../../components/admComponents/NavbarAdm';
+import CardUser from '../../components/admComponents/CardUser';
 
 export default function Vendedores() {
     const [usuarios, setUsuarios] = useState([]);

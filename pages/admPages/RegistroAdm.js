@@ -4,6 +4,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { TextInputMask } from 'react-native-masked-text';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import nophoto from '../../assets/images/nophoto.jpg';
 
 const RegistroAdm = ({ onRegister = () => { } }) => {
     const navigation = useNavigation();
@@ -47,7 +48,7 @@ const RegistroAdm = ({ onRegister = () => { } }) => {
                     nascimento: nascimentoFormatado,
                     senha,
                     isAdmin: true,
-                    foto_perfil: "https://t.ctcdn.com.br/GcoDwE5pfX70dkeeDLZb3qXpexg=/640x360/smart/i601453.png",
+                    foto_perfil: {nophoto},
                     cidade,
                     estado
                 }),

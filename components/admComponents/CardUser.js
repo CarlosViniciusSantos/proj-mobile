@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';  // Importando a navegação
 
-import avatar from '../assets/images/nophoto.jpg';
+import avatar from '../../assets/images/nophoto.jpg';
 
 export default function CardUser({ nome, email, telefone, foto, id, cidade, estado, cpf, isAdmin }) {
     const navigation = useNavigation();  // Hook para acessar a navegação
