@@ -3,13 +3,14 @@ import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Dimensions
 import { useRoute } from '@react-navigation/native';
 import FooterVendas from '../components/FooterVendas';
 import NavbarPadrao from '../components/NavbarPadrao';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width } = Dimensions.get('window');
 
 export default function DetalhesAnuncio() {
   const route = useRoute();
   const { veiculo, usuarioId } = route.params;
-  console.log('abc',useRoute())
+  console.log('abc', useRoute())
 
   const [expanded, setExpanded] = useState(false);
   const [vendedor, setVendedor] = useState(null);
@@ -34,14 +35,18 @@ export default function DetalhesAnuncio() {
   useEffect(() => {
     const fetchVendedor = async () => {
       try {
+        const id = await AsyncStorage.getItem('id');
         const response = await fetch(`https://pi3-backend-i9l3.onrender.com/usuarios/${veiculo.usuarioId}`);
         const data = await response.json();
         console.log(data)
         setVendedor(data);
+        console.log('teste',id)
       } catch (error) {
         console.error('Erro ao buscar dados do vendedor:', error);
       } finally {
         setLoading(false);
+
+        aids(id)
       }
     };
 
@@ -51,11 +56,18 @@ export default function DetalhesAnuncio() {
   if (loading) {
     return <Text>Carregando...</Text>;
   }
+  const comprar =''
+
+  async function aids(id) {
+    console.log(id)
+    vendedor.id == id ? comprar = true : comprar = false
+  }
+
 
   console.log(veiculo.usuarioId.toString())
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <NavbarPadrao texto="Detalhes do Anúncio"/>
+      <NavbarPadrao texto="Detalhes do Anúncio" />
 
       <View style={styles.imageGallery}>
         <ScrollView horizontal pagingEnabled>
@@ -135,7 +147,7 @@ export default function DetalhesAnuncio() {
           <Text style={styles.obs}>
             {expanded
               ? carDetails.descricao || ''
-              : (carDetails.descricao&& <Text>{carDetails.descricao.substring(0, 100)}...</Text>) || ''}
+              : (carDetails.descricao && <Text>{carDetails.descricao.substring(0, 100)}...</Text>) || ''}
           </Text>
           <TouchableOpacity onPress={toggleText}>
             <Text style={styles.ler}>{expanded ? "Ler menos" : "Ler mais"}</Text>
@@ -153,7 +165,7 @@ export default function DetalhesAnuncio() {
         <Text style={styles.location}>{vendedor?.email}</Text>
       </View>
 
-      <FooterVendas teste={true} veiculo={veiculo} />
+      <FooterVendas teste={true} veiculo={veiculo} comprar={comprar} />
     </ScrollView>
   );
 }

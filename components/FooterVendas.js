@@ -4,7 +4,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
 
-export default function FooterVendas({ teste, veiculo }) {
+export default function FooterVendas({ teste, veiculo, comprar }) {
   const navigation = useNavigation();
 
   const openWhatsApp = (phoneNumber) => {
@@ -23,7 +23,7 @@ export default function FooterVendas({ teste, veiculo }) {
 
   return (
     <View style={styles.footerContainer}>
-      {teste === true ? (
+      {comprar === true ? (
         <TouchableOpacity
           style={styles.comprarButton}
           // Passa os dados do veículo ao navegar para a tela de compra

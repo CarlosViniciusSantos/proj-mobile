@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal, Alert } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const ExcluirVeiculoModal = ({ visible, onClose }) => {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
-    const handleDeleteAccount = async () => {
+
+    
+    
+    const handleDeleteVeiculo = async () => {
         setLoading(true);
         try {
-            const token = await AsyncStorage.getItem('token'); // Pega o token do AsyncStorage
-            const veiculoId = await AsyncStorage.getItem('id'); // Pega o ID do usuário do AsyncStorage
+            const veiculoId = await AsyncStorage.getItem('veiculoId'); // Pega o ID do usuário do AsyncStorage
 
             const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${veiculoId}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': `Bearer ${token}`, // Envia o token de autenticação
                     'Content-Type': 'application/json',
                 },
             });
@@ -25,17 +26,18 @@ const ExcluirVeiculoModal = ({ visible, onClose }) => {
             if (response.ok) {
                 // Se a exclusão for bem-sucedida, limpa o AsyncStorage
                 await AsyncStorage.clear();
-                Alert.alert('Sucesso', 'Sua conta foi excluída com sucesso.');
+                Alert.alert('Sucesso', 'Veiculo excluído com sucesso.');
+                AsyncStorage.removeItem('veiculoId')
                 onClose(); // Fecha o modal
-                navigation.navigate('Login'); // Redireciona para a tela de login
+                navigation.navigate('MeusVeiculos'); // Redireciona para a tela de login
             } else {
                 const errorText = await response.text();
-                Alert.alert('Erro', `Falha ao excluir conta: ${errorText}`);
+                Alert.alert('Erro', `Falha ao excluir veículo: ${errorText}`);
                 console.log(errorText)
             }
         } catch (error) {
-            console.error('Erro ao excluir conta:', error);
-            Alert.alert('Erro', 'Ocorreu um erro ao tentar excluir a conta.');
+            console.error('Erro ao excluir veículo:', error);
+            Alert.alert('Erro', 'Ocorreu um erro ao tentar excluir o veículo.');
         } finally {
             setLoading(false);
         }
@@ -60,7 +62,7 @@ const ExcluirVeiculoModal = ({ visible, onClose }) => {
                         <Text style={styles.text3}>Depois que você apaga um Anúncio, não há como voltar atrás. Por favor, tenha certeza.</Text>
                     </View>
                     <View style={styles.row}>
-                        <TouchableOpacity style={styles.botao2} onPress={handleDeleteAccount} disabled={loading}>
+                        <TouchableOpacity style={styles.botao2} onPress={handleDeleteVeiculo} disabled={loading}>
                             <Text style={styles.text}>{loading ? 'Excluindo...' : 'Excluir'}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.botao} onPress={onClose}>

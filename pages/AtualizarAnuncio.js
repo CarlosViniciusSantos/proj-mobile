@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert } from 'react-native';
 import NavbarPadrao from '../components/NavbarPadrao';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,6 +10,7 @@ export default function AtualizarDadosCarro() {
   const navigation = useNavigation();
   const route = useRoute();
   const { veiculoId } = route.params; // Pegando o id do veículo a partir da rota
+  AsyncStorage.setItem('veiculoId', veiculoId)
   console.log(veiculoId)
 
   const [id, setId] = useState('');
@@ -123,7 +124,7 @@ export default function AtualizarDadosCarro() {
     }
 
     try {
-      const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${id}`, { // Certifique-se de que o veiculoId seja uma string
+      const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${veiculoId}`, { // Certifique-se de que o veiculoId seja uma string
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data', // Importante para upload de arquivo
@@ -135,12 +136,14 @@ export default function AtualizarDadosCarro() {
         const data = await response.json();
         console.log(data);
         navigation.navigate('MeusVeiculos'); // Navega para a página dos veículos
+        Alert.alert('Sucesso', 'Dados atualizados com sucesso!');
       } else {
         const responseBody = await response.text();
         console.error("Erro ao atualizar carro:", response.status, responseBody);
       }
     } catch (error) {
       console.error("Erro ao atualizar carro:", error);
+      Alert.alert('Erro', 'Ocorreu um erro ao atualizar. Tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -148,7 +151,7 @@ export default function AtualizarDadosCarro() {
 
   return (
     <View style={styles.container}>
-      <NavbarPadrao texto="Atualizar Veículo" />
+      <NavbarPadrao texto="Atualizar Veículo" trash={true} />
       <View style={styles.container2}>
         <ScrollView style={styles.formContainer}>
           <Text style={styles.sectionTitle}>Onde se Localiza o Carro?</Text>
@@ -228,14 +231,14 @@ export default function AtualizarDadosCarro() {
           <TextInput
             style={styles.input}
             placeholder="Valor"
-            value={valor}
+            value={valor.toString()}
             onChangeText={setValor}
             keyboardType="numeric"
           />
           <TextInput
             style={styles.input}
             placeholder="Ano de Fabricação"
-            value={anoFabricacao}
+            value={anoFabricacao.toString()}
             onChangeText={setAnoFabricacao}
             keyboardType="numeric"
           />
@@ -259,7 +262,7 @@ export default function AtualizarDadosCarro() {
             <TextInput
               style={[styles.input, styles.smallInput]}
               placeholder="Km"
-              value={km}
+              value={km.toString()}
               onChangeText={setKm}
               keyboardType="numeric"
             />
