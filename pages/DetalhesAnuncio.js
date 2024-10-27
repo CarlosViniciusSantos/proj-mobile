@@ -8,13 +8,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const { width } = Dimensions.get('window');
 
 export default function DetalhesAnuncio() {
+  
   const route = useRoute();
-  const { veiculo, usuarioId } = route.params;
-  console.log('abc', useRoute())
-
+  const { veiculo } = route.params;
+  console.log('vendedor id', route.params.veiculo.usuarioId)
+  console.log('USER ID', AsyncStorage.getItem('id'))
+  
   const [expanded, setExpanded] = useState(false);
   const [vendedor, setVendedor] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [comprar, setComprar] = useState()
 
   const toggleText = () => {
     setExpanded(!expanded);
@@ -41,26 +44,20 @@ export default function DetalhesAnuncio() {
         console.log(data)
         setVendedor(data);
         console.log('teste',id)
+        veiculo.usuarioId === id ? setComprar(false) : setComprar(true)
       } catch (error) {
         console.error('Erro ao buscar dados do vendedor:', error);
       } finally {
         setLoading(false);
 
-        aids(id)
       }
     };
 
     fetchVendedor();
-  }, [usuarioId]);
+  }, [veiculo.usuarioId]);
 
   if (loading) {
     return <Text>Carregando...</Text>;
-  }
-  const comprar =''
-
-  async function aids(id) {
-    console.log(id)
-    vendedor.id == id ? comprar = true : comprar = false
   }
 
 

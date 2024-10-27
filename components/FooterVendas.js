@@ -26,12 +26,11 @@ export default function FooterVendas({ teste, veiculo, comprar }) {
       {comprar === true ? (
         <TouchableOpacity
           style={styles.comprarButton}
-          // Passa os dados do veículo ao navegar para a tela de compra
           onPress={() => navigation.navigate('Comprar', { veiculo })}
         >
           <Text style={styles.buttonText}>Comprar</Text>
         </TouchableOpacity>
-      ) : null}
+      ) : ''}
       <TouchableOpacity style={styles.cllButton} onPress={() => openWhatsApp('551299105-3552')}>
         <Ionicons name="logo-whatsapp" size={24} color="white" />
       </TouchableOpacity>
