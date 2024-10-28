@@ -11,7 +11,6 @@ import CardComprasUser from '../../components/admComponents/CardComprasUser';
 export default function DetalhesUser() {
     const route = useRoute();  // Acessa os parâmetros da navegação
     const { nome, email, telefone, foto, cidade, estado, cpf, usuarioId, isAdmin } = route.params || {};  // Inclui usuarioId do card clicado
-    console.log("abc",route.params)
 
     const [modalVisibleExcluir, setModalVisibleExcluir] = useState(false);
 
@@ -33,10 +32,10 @@ export default function DetalhesUser() {
                 const response = await fetch('https://pi3-backend-i9l3.onrender.com/veiculos');
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data); // Verifique a estrutura da resposta da API
+                    // console.log(data); // Verifique a estrutura da resposta da API
 
                     const veiculosUsuario = data.veiculos.filter(veiculo => veiculo.usuarioId === usuarioId);
-                    console.log('Veículos do Usuário:', veiculosUsuario); // Verifique os veículos do usuário clicado
+                    // console.log('Veículos do Usuário:', veiculosUsuario); // Verifique os veículos do usuário clicado
 
                     setVeiculosDoUsuario(veiculosUsuario);
                 } else {

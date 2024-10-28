@@ -9,10 +9,10 @@ export default function Vendedores() {
     useEffect(() => {
         const getUsers = async () => {
             const response = await fetch('https://pi3-backend-i9l3.onrender.com/usuarios')
-            console.log(response)
+            // console.log(response)
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+                //console.log(data);
                 setUsuarios(data);
                 return;
             }

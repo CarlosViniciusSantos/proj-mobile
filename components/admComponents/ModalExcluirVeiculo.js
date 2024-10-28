@@ -4,19 +4,15 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-const ExcluirVeiculoModal = ({ visible, onClose }) => {
+const ExcluirVeiculoModal = ({ visible, onClose, id }) => {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
-
-    
-    
     const handleDeleteVeiculo = async () => {
         setLoading(true);
         try {
-            const veiculoId = await AsyncStorage.getItem('veiculoId'); // Pega o ID do usuário do AsyncStorage
 
-            const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${veiculoId}`, {
+            const response = await fetch(`https://pi3-backend-i9l3.onrender.com/veiculos/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,7 +25,7 @@ const ExcluirVeiculoModal = ({ visible, onClose }) => {
                 Alert.alert('Sucesso', 'Veiculo excluído com sucesso.');
                 AsyncStorage.removeItem('veiculoId')
                 onClose(); // Fecha o modal
-                navigation.navigate('MeusVeiculos'); // Redireciona para a tela de login
+                navigation.navigate('UsuarioAdm'); // Redireciona para a tela de login
             } else {
                 const errorText = await response.text();
                 Alert.alert('Erro', `Falha ao excluir veículo: ${errorText}`);
