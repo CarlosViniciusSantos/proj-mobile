@@ -5,6 +5,8 @@ import NavbarPesquisa from '../components/NavbarPesquisa';
 import CardCarMaior from '../components/CardCarMaior';
 import CardCarMenor from '../components/CardCarMenor';
 
+const baseURL = 'https://pi3-backend-i9l3.onrender.com';
+
 export default function CatalogoCarros() {
     const [modoExibicao, setModoExibicao] = useState(true);
     const [veiculos, setVeiculos] = useState([]);
@@ -25,12 +27,27 @@ export default function CatalogoCarros() {
     useFocusEffect(
         React.useCallback(() => {
             const getVeiculos = async () => {
-                const response = await fetch('https://pi3-backend-i9l3.onrender.com/veiculos');
-                if (response.ok) {
-                    const data = await response.json();
-                    setVeiculos(data.veiculos);
-                } else {
-                    console.log("Erro ao carregar veículos");
+                try {
+                    // Busca todos os veículos
+                    const responseVeiculos = await fetch(`${baseURL}/veiculos`);
+                    if (!responseVeiculos.ok) throw new Error("Erro ao carregar veículos");
+                    const dataVeiculos = await responseVeiculos.json();
+                    const todosVeiculos = dataVeiculos.veiculos;
+
+                    // Busca todos os IDs de veículos comprados
+                    const responseCompras = await fetch(`${baseURL}/compra`);
+                    if (!responseCompras.ok) throw new Error("Erro ao carregar compras");
+                    const dataCompras = await responseCompras.json();
+                    const veiculosCompradosIds = dataCompras.Compras.map(compra => compra.Veículo.ID);
+
+                    // Filtra veículos que não foram comprados
+                    const veiculosDisponiveis = todosVeiculos.filter(
+                        veiculo => !veiculosCompradosIds.includes(veiculo.id)
+                    );
+
+                    setVeiculos(veiculosDisponiveis);
+                } catch (error) {
+                    console.log(error.message);
                 }
             };
             getVeiculos();
@@ -127,7 +144,7 @@ export default function CatalogoCarros() {
             )}
 
             <View style={styles.scro}>
-                <ScrollView >
+                <ScrollView>
                     {veiculos.length === 0 && <Text>Carregando...</Text>}
                     {veiculosOrdenados.map(veiculo =>
                         modoExibicao ? (

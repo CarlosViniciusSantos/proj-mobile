@@ -3,13 +3,18 @@ import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import NavbarPadrao from '../components/NavbarPadrao';
 import CardMeuVeiculo from '../components/CardMeuVeiculo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native';
 
 export default function MeusVeiculos() {
+
+    const navigation = useNavigation()
+
     const [meusVeiculos, setMeusVeiculos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [erro, setErro] = useState(null);
     const [userId, setUserId] = useState(null);
+
 
     useEffect(() => {
         const fetchUserId = async () => {
@@ -19,7 +24,7 @@ export default function MeusVeiculos() {
                 if (!id) {
                     throw new Error("Usuário não logado");
                 }
-                setUserId(id); 
+                setUserId(id);
             } catch (error) {
                 setErro("Erro ao recuperar usuário");
             }
@@ -40,7 +45,7 @@ export default function MeusVeiculos() {
 
                             const veiculosDoUsuario = data.veiculos.filter(veiculo => veiculo.usuarioId === userId);
                             // console.log('Veículos do Usuário:', veiculosDoUsuario); // Verifique os veículos do usuário
-                            
+
                             setMeusVeiculos(veiculosDoUsuario);
                         } else {
                             throw new Error("Erro ao carregar veículos");
@@ -66,7 +71,14 @@ export default function MeusVeiculos() {
                 ) : erro ? (
                     <Text style={{ color: 'red' }}>{erro}</Text>
                 ) : meusVeiculos.length === 0 ? (
-                    <Text>Nenhum veículo encontrado.</Text>
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center', gap:50}}>
+
+                        <Text>Nenhum veículo encontrado.</Text>
+
+                        <TouchableOpacity onPress={() => navigation.navigate('CadastrarVeiculo')} style={{backgroundColor:'red', padding:8, borderRadius:10}}>
+                            <Text style={{color:'white', fontWeight:'bold'}}>Anunciar um Veículo</Text>
+                        </TouchableOpacity>
+                    </View>
                 ) : (
                     <ScrollView>
                         {meusVeiculos.map(veiculo => (

@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, ScrollView, View, Text } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import NavbarPadrao from '../components/NavbarPadrao';
 import CardMinhasCompras from '../components/CardMinhasCompras';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const baseURL = 'https://pi3-backend-i9l3.onrender.com';
 
 export default function MinhasCompras() {
+
+    const navigation = useNavigation()
+    
     const [minhasCompras, setMinhasCompras] = useState([]);
     const [loading, setLoading] = useState(true);
     const [erro, setErro] = useState(null);
@@ -62,7 +66,14 @@ export default function MinhasCompras() {
                 ) : erro ? (
                     <Text style={{ color: 'red' }}>{erro}</Text>
                 ) : minhasCompras.length === 0 ? (
-                    <Text>Nenhuma compra encontrada.</Text>
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center', gap:50}}>
+
+                        <Text>Nenhuma compra realizada.</Text>
+
+                        <TouchableOpacity onPress={() => navigation.navigate('Catalogo')} style={{backgroundColor:'red', padding:8, borderRadius:10}}>
+                            <Text style={{color:'white', fontWeight:'bold'}}>Comprar um Veículo</Text>
+                        </TouchableOpacity>
+                    </View>
                 ) : (
                     <ScrollView>
                         {minhasCompras.map(veiculo => (

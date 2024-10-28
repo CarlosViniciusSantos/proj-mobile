@@ -63,7 +63,7 @@ export default function App() {
         />
       )}
 
-      <Stack.Navigator initialRouteName="Login" screenOptions={{
+      <Stack.Navigator initialRouteName="MeusVeiculos" screenOptions={{
           headerShown: false,
         }}
       >
