@@ -27,7 +27,7 @@ export default function Vendedores() {
 
     return (
         <View style={styles.container}>
-            <NavbarAdm user={false} vend={true} />
+            {/* <NavbarAdm user={false} vend={true} /> */}
             <ScrollView style={styles.scr}>
                 {administradores.length === 0 && <Text>Carregando ou nenhum administrador encontrado...</Text>}
                 {

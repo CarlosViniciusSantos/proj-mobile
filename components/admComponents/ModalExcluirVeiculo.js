@@ -20,10 +20,7 @@ const ExcluirVeiculoModal = ({ visible, onClose, id }) => {
             });
 
             if (response.ok) {
-                // Se a exclusão for bem-sucedida, limpa o AsyncStorage
-                await AsyncStorage.clear();
                 Alert.alert('Sucesso', 'Veiculo excluído com sucesso.');
-                AsyncStorage.removeItem('veiculoId')
                 onClose(); // Fecha o modal
                 navigation.navigate('UsuarioAdm'); // Redireciona para a tela de login
             } else {
