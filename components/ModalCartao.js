@@ -1,12 +1,55 @@
 import React, { useState } from 'react';
-import { View, Text, Button, TextInput, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, Alert } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const CustomModal = ({ visible, onClose }) => {
+const baseURL = 'https://pi3-backend-i9l3.onrender.com'; // Substitua pela URL base da sua API
+
+const CustomModal = ({ visible, onClose, setCardDetails }) => {
   const [cardNumber, setCardNumber] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [cardHolder, setCardHolder] = useState('');
+
+  const handleCardCreation = async () => {
+    try {
+        const response = await fetch(`${baseURL}/credit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                usuarioId: await AsyncStorage.getItem('id'),
+                numero: cardNumber,
+                validade: expiryDate,
+                cvv: cvv,
+                nomeTitular: cardHolder,
+                bandeira: 'Visa',
+            }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            const creditCardId = data.cartaoCredito.id; 
+            const last4Digits = cardNumber.slice(-4); // Obtém os últimos 4 dígitos do número do cartão
+            setCardDetails({ creditCardId, last4Digits }); // Atualiza o estado com o ID e os últimos dígitos
+            
+            // Armazena o ID e os últimos dígitos do cartão para futuras compras
+            await AsyncStorage.setItem('savedCreditCardId', creditCardId);
+            await AsyncStorage.setItem('savedCardLast4Digits', last4Digits);
+
+            Alert.alert("Sucesso", "Cartão cadastrado com sucesso.");
+            onClose(); 
+        } else {
+            Alert.alert("Erro", data.message || "Erro ao cadastrar o cartão.");
+        }
+    } catch (error) {
+        console.error("Erro ao cadastrar o cartão:", error);
+        Alert.alert("Erro", "Não foi possível cadastrar o cartão. Tente novamente.");
+    }
+};
+
 
   return (
     <Modal
@@ -18,7 +61,7 @@ const CustomModal = ({ visible, onClose }) => {
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
           <View style={styles.close}>
-            <AntDesign name="close" size={24} color="black" onPress={onClose}/>
+            <AntDesign name="close" size={24} color="black" onPress={onClose} />
           </View>
           <Text style={styles.title}>Informações do Cartão</Text>
           <TextInput
@@ -48,8 +91,8 @@ const CustomModal = ({ visible, onClose }) => {
             value={cardHolder}
             onChangeText={setCardHolder}
           />
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Cadastrar</Text>
+          <TouchableOpacity style={styles.button} onPress={handleCardCreation}>
+            <Text style={styles.buttonText}>Salvar Informações do Cartão</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -62,20 +105,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
   modalContent: {
     width: '95%',
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: 'red',
+    color: 'red'
   },
   input: {
     width: '100%',
@@ -84,7 +127,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 5,
     paddingHorizontal: 10,
-    marginBottom: 15,
+    marginBottom: 15
   },
   row: {
     flexDirection: 'row',
@@ -92,18 +135,18 @@ const styles = StyleSheet.create({
     gap: 10
   },
   halfInput: {
-    width: '48%',
+    width: '48%'
   },
   button: {
     backgroundColor: 'red',
     paddingVertical: 10,
     paddingHorizontal: 40,
     borderRadius: 5,
-    marginTop: 10,
+    marginTop: 10
   },
   buttonText: {
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   close: {
     width: '100%'
