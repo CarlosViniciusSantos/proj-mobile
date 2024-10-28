@@ -12,6 +12,7 @@ const CustomModal = ({ visible, onClose, setCardDetails }) => {
   const [cardHolder, setCardHolder] = useState('');
 
   const handleCardCreation = async () => {
+    const userId = await AsyncStorage.getItem('id');
     try {
         const response = await fetch(`${baseURL}/credit`, {
             method: 'POST',
@@ -19,7 +20,7 @@ const CustomModal = ({ visible, onClose, setCardDetails }) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                usuarioId: await AsyncStorage.getItem('id'),
+                usuarioId: userId,
                 numero: cardNumber,
                 validade: expiryDate,
                 cvv: cvv,
@@ -31,24 +32,23 @@ const CustomModal = ({ visible, onClose, setCardDetails }) => {
         const data = await response.json();
 
         if (response.ok) {
-            const creditCardId = data.cartaoCredito.id; 
-            const last4Digits = cardNumber.slice(-4); // Obtém os últimos 4 dígitos do número do cartão
-            setCardDetails({ creditCardId, last4Digits }); // Atualiza o estado com o ID e os últimos dígitos
-            
-            // Armazena o ID e os últimos dígitos do cartão para futuras compras
-            await AsyncStorage.setItem('savedCreditCardId', creditCardId);
-            await AsyncStorage.setItem('savedCardLast4Digits', last4Digits);
-
+            const newCard = {
+                id: data.cartaoCredito.id,
+                numero: cardNumber,
+                last4Digits: cardNumber.slice(-4),
+                usuarioId: userId,
+            };
+            setCardDetails(newCard);
             Alert.alert("Sucesso", "Cartão cadastrado com sucesso.");
-            onClose(); 
+            onClose();
         } else {
             Alert.alert("Erro", data.message || "Erro ao cadastrar o cartão.");
         }
     } catch (error) {
-        console.error("Erro ao cadastrar o cartão:", error);
         Alert.alert("Erro", "Não foi possível cadastrar o cartão. Tente novamente.");
     }
 };
+
 
 
   return (

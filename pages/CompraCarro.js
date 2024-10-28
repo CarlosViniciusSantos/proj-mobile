@@ -18,16 +18,14 @@ export default function CompraCarro() {
     const [modalVisiblepix, setModalVisiblePix] = useState(false);
     const [modalVisibleBol, setModalVisibleBol] = useState(false);
     const [modalVisibleCard, setModalVisibleCard] = useState(false);
-    const [userCredits, setUserCredits] = useState([]); // Lista de cartões inicializada como array vazio
-    const [selectedCreditId, setSelectedCreditId] = useState(null); // Cartão selecionado
+    const [userCredits, setUserCredits] = useState([]);
+    const [selectedCreditId, setSelectedCreditId] = useState(null);
 
     useEffect(() => {
         const fetchUserCredits = async () => {
             const userId = await AsyncStorage.getItem('id');
-            console.log("Recuperando cartões para usuarioId:", userId);
-
             try {
-                const response = await fetch(`${baseURL}/credit`, {
+                const response = await fetch(`${baseURL}/credit?usuarioId=${userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -35,33 +33,24 @@ export default function CompraCarro() {
                 });
 
                 const data = await response.json();
-                console.log("Resposta da API ao buscar cartões:", data);
 
-                // Verifica se a resposta contém "cartoesDeCredito" e se é um array
                 if (response.ok && Array.isArray(data.cartoesDeCredito)) {
-                    // Extrair os últimos 4 dígitos do número de cada cartão
                     const cardsWithLast4Digits = data.cartoesDeCredito.map(card => ({
                         ...card,
-                        last4Digits: card.numero.slice(-4), // Pega os últimos 4 dígitos do número
+                        last4Digits: card.numero.slice(-4),
                     }));
 
                     setUserCredits(cardsWithLast4Digits);
                     if (cardsWithLast4Digits.length > 0) setSelectedCreditId(cardsWithLast4Digits[0].id);
                 } else {
-                    console.error("Erro: resposta de créditos não é um array ou resposta inválida.", data);
                     Alert.alert("Erro", "Não foi possível carregar os cartões cadastrados.");
-                    setUserCredits([]);
                 }
             } catch (error) {
-                console.error("Erro ao buscar créditos do usuário:", error);
                 Alert.alert("Erro", "Falha ao carregar cartões. Tente novamente mais tarde.");
             }
         };
         fetchUserCredits();
     }, []);
-
-
-
 
     const createCompra = async (method) => {
         try {
@@ -105,7 +94,6 @@ export default function CompraCarro() {
                 Alert.alert("Erro", data.error || "Erro ao processar pagamento.");
             }
         } catch (error) {
-            console.error("Erro ao processar o pagamento:", error);
             Alert.alert("Erro", "Erro ao processar pagamento.");
         }
     };
@@ -123,14 +111,13 @@ export default function CompraCarro() {
     };
 
     const handleCardCreation = async (newCardDetails) => {
-        // Garante que o novo cartão tenha os últimos 4 dígitos
         const cardWithLast4Digits = {
             ...newCardDetails,
             last4Digits: newCardDetails.numero.slice(-4),
         };
 
         setUserCredits(prevCredits => [...prevCredits, cardWithLast4Digits]);
-        setSelectedCreditId(newCardDetails.id); // Seleciona automaticamente o novo cartão
+        setSelectedCreditId(newCardDetails.id);
     };
 
     return (
@@ -158,11 +145,10 @@ export default function CompraCarro() {
 
             {/* Lista de cartões cadastrados */}
             <View style={styles.cardOptions}>
-                <Text style={styles.subTitle}>Selecione um cartão (Crétido/Débito):</Text>
-
+                <Text style={styles.subTitle}>Selecione um cartão (Crédito/Débito):</Text>
                 {userCredits.map(credit => (
                     <TouchableOpacity
-                        key={credit.id} // Garante que cada cartão tenha um `key` único com o ID do cartão
+                        key={credit.id}
                         style={[
                             styles.optionButton,
                             selectedCreditId === credit.id && styles.optionButtonSelected,
@@ -172,9 +158,8 @@ export default function CompraCarro() {
                         <Text style={styles.optionText}>Cartão com final {credit.last4Digits}</Text>
                     </TouchableOpacity>
                 ))}
-
                 <TouchableOpacity
-                    key="addNewCard" // Adiciona um `key` único para o botão de adicionar novo cartão
+                    key="addNewCard"
                     style={[
                         styles.optionButton,
                         selectedCreditId === 'addNewCard' && styles.optionButtonSelected,
@@ -185,12 +170,10 @@ export default function CompraCarro() {
                 </TouchableOpacity>
             </View>
 
-
-
             <CustomModal
                 visible={modalVisibleCard}
                 onClose={() => setModalVisibleCard(false)}
-                setCardDetails={handleCardCreation} // Atualiza a lista de cartões após cadastrar um novo cartão
+                setCardDetails={handleCardCreation}
             />
             <PixModal visible={modalVisiblepix} onClose={() => setModalVisiblePix(false)} />
             <BoletoModal visible={modalVisibleBol} onClose={() => setModalVisibleBol(false)} />
@@ -203,6 +186,7 @@ export default function CompraCarro() {
         </ScrollView>
     );
 }
+
 
 const styles = StyleSheet.create({
     bg: {
