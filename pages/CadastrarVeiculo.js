@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert } from 'react-native';
 import NavbarPadrao from '../components/NavbarPadrao';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -76,12 +76,14 @@ export default function CadastrarVeiculo() {
         const data = await response.json();
         console.log(data);
         navigation.navigate('Home');
+        Alert.alert('Sucesso', 'Veículo cadastrado com sucesso!');
       } else {
         const responseBody = await response.text();
         console.error("Erro ao carregar carros:", response.status, responseBody);
       }
     } catch (error) {
       console.error("Erro ao registrar carro:", error);
+      Alert.alert('Erro', 'Ocorreu um erro ao cadastrar. Tente novamente.');
     } finally {
       setLoading(false); // Finaliza o loading
     }

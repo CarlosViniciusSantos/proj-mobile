@@ -25,21 +25,24 @@ export default function CompraCarro() {
         const fetchUserCredits = async () => {
             const userId = await AsyncStorage.getItem('id');
             try {
-                const response = await fetch(`${baseURL}/credit?usuarioId=${userId}`, {
+                const response = await fetch(`${baseURL}/credit`, { // Rota sem o filtro de usuário
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 });
-
+    
                 const data = await response.json();
-
+    
                 if (response.ok && Array.isArray(data.cartoesDeCredito)) {
-                    const cardsWithLast4Digits = data.cartoesDeCredito.map(card => ({
+                    // Filtrando os cartões pelo usuário logado
+                    const userCards = data.cartoesDeCredito.filter(card => card.usuarioId === userId);
+                    
+                    const cardsWithLast4Digits = userCards.map(card => ({
                         ...card,
                         last4Digits: card.numero.slice(-4),
                     }));
-
+    
                     setUserCredits(cardsWithLast4Digits);
                     if (cardsWithLast4Digits.length > 0) setSelectedCreditId(cardsWithLast4Digits[0].id);
                 } else {
@@ -51,6 +54,7 @@ export default function CompraCarro() {
         };
         fetchUserCredits();
     }, []);
+    
 
     const createCompra = async (method) => {
         try {
@@ -246,7 +250,7 @@ const styles = StyleSheet.create({
     },
     optionText: {
         fontSize: 16,
-        color: '#000'
+        fontWeight:'bold'
     },
     buyButton: {
         backgroundColor: '#ff0000',
