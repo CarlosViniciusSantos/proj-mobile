@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import NavbarPadrao from '../../components/NavbarPadrao';
 import Feather from '@expo/vector-icons/Feather';
-import ExcluirModal from '../../components/ModalExcluir';
+import ExcluirModal from '../../components/admComponents/ModalExcluirUsers';
 // Importações só serão usadas se o usuário não for admin
 import CardVeiculoUser from '../../components/admComponents/CardVeiculoUser';
 import CardComprasUser from '../../components/admComponents/CardComprasUser';
