@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import CatalogoCarros from './pages/CatalogoCarros';
 import Home from './pages/Home';
 import Footer from './components/Footer';
+import NavbarAdm from './components/admComponents/NavbarAdm';
 import SideBarUser from './pages/SideBarUser';
 import MeusVeiculos from './pages/MeusVeiculos';
 import Registro from './pages/Registro';
@@ -30,7 +31,11 @@ export default function App() {
   const navigationRef = useNavigationContainerRef();
   const [currentRoute, setCurrentRoute] = useState();
 
+  const route = navigationRef.getCurrentRoute(); 
+  console.log(route?.name)
+
   const noFooterRoutes = ['Login', 'Registro', 'Enviar', 'AtualizarAnuncio', 'AtualizarDados', 'SobreNos', 'Anuncio', 'Comprar', 'AdmRegistro', 'CadastrarVeiculo', 'UsuarioAdm', 'DetalhesUser', 'Adms'];
+  const navBarAdm = ['UsuarioAdm', 'Adms'];
 
   useEffect(() => {
     const unsubscribe = navigationRef.addListener('state', () => {
@@ -45,11 +50,14 @@ export default function App() {
     <NavigationContainer ref={navigationRef} onReady={() => {
       const route = navigationRef.getCurrentRoute();
       setCurrentRoute(route?.name);
+     
     }}>
+      {navBarAdm.includes(currentRoute) && <NavbarAdm user={route.name=== "UsuarioAdm"? true:false} vend={route.name=== "Adms"? true:false} />}
       <Stack.Navigator initialRouteName="Login" screenOptions={({ route }) => ({
           headerShown: false,
         })}
       >
+
         <Stack.Screen name="Registro" component={Registro} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />

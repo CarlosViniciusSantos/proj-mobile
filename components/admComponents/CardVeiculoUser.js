@@ -37,7 +37,7 @@ export default function CardMeuVeiculo({ id, marca, modelo, valor, foto, cor, an
         </View>
       </View>
 
-      <ExcluirVeiculoModal visible={modalVisibleExcluirVeiculo} onClose={closeModalExcluirVeiculo} />
+      <ExcluirVeiculoModal visible={modalVisibleExcluirVeiculo} onClose={closeModalExcluirVeiculo} id={id} />
     </View>
 
   );

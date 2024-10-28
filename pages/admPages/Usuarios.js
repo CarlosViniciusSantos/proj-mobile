@@ -11,7 +11,7 @@ export default function Vendedores() {
         React.useCallback(() =>{
             const getUsers = async () => {
                 const response = await fetch('https://pi3-backend-i9l3.onrender.com/usuarios')
-                console.log(response)
+                // console.log(response)
                 if (response.ok) {
                     const data = await response.json();
                     setUsuarios(data);
@@ -28,7 +28,7 @@ export default function Vendedores() {
 
     return (
         <View style={styles.container}>
-            <NavbarAdm user={true} vend={false} />
+            {/* <NavbarAdm user={true} vend={false} /> */}
             <ScrollView style={styles.scr}>
                 {administradores.length === 0 && <Text>Carregando ou nenhum administrador encontrado...</Text>}
                 {

@@ -6,7 +6,6 @@ import { useNavigation,useRoute } from '@react-navigation/native';
 
 const ExcluirUserModal = ({ visible, onClose }) => {
     const route = useRoute()
-    console.log("alou" , route.params.id)
     const {nome, id} = route.params
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
