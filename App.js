@@ -29,35 +29,44 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const navigationRef = useNavigationContainerRef();
-  const [currentRoute, setCurrentRoute] = useState();
-
-  const route = navigationRef.getCurrentRoute(); 
-  console.log(route?.name)
+  const [currentRoute, setCurrentRoute] = useState(null);
 
   const noFooterRoutes = ['Login', 'Registro', 'Enviar', 'AtualizarAnuncio', 'AtualizarDados', 'SobreNos', 'Anuncio', 'Comprar', 'AdmRegistro', 'CadastrarVeiculo', 'UsuarioAdm', 'DetalhesUser', 'Adms'];
   const navBarAdm = ['UsuarioAdm', 'Adms'];
 
+  // Atualiza a rota atual ao montar o NavigationContainer
   useEffect(() => {
-    const unsubscribe = navigationRef.addListener('state', () => {
-      const route = navigationRef.getCurrentRoute();
-      setCurrentRoute(route?.name);
-    });
+    if (navigationRef.isReady()) {
+      const initialRoute = navigationRef.getCurrentRoute();
+      setCurrentRoute(initialRoute?.name);
 
-    return unsubscribe;
+      // Adiciona um listener para atualizar a rota atual sempre que o estado de navegação mudar
+      const unsubscribe = navigationRef.addListener('state', () => {
+        const route = navigationRef.getCurrentRoute();
+        setCurrentRoute(route?.name);
+      });
+
+      return unsubscribe;
+    }
   }, [navigationRef]);
 
   return (
     <NavigationContainer ref={navigationRef} onReady={() => {
       const route = navigationRef.getCurrentRoute();
       setCurrentRoute(route?.name);
-     
     }}>
-      {navBarAdm.includes(currentRoute) && <NavbarAdm user={route.name=== "UsuarioAdm"? true:false} vend={route.name=== "Adms"? true:false} />}
-      <Stack.Navigator initialRouteName="Login" screenOptions={({ route }) => ({
-          headerShown: false,
-        })}
-      >
+      {/* Exibe o NavbarAdm apenas nas rotas específicas */}
+      {navBarAdm.includes(currentRoute) && (
+        <NavbarAdm
+          user={currentRoute === "UsuarioAdm"}
+          vend={currentRoute === "Adms"}
+        />
+      )}
 
+      <Stack.Navigator initialRouteName="Login" screenOptions={{
+          headerShown: false,
+        }}
+      >
         <Stack.Screen name="Registro" component={Registro} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
@@ -80,8 +89,8 @@ export default function App() {
         <Stack.Screen name="DetalhesUser" component={DetalhesUser} />
       </Stack.Navigator>
 
+      {/* Exibe o Footer apenas nas rotas que não estão em noFooterRoutes */}
       {!noFooterRoutes.includes(currentRoute) && <Footer />}
-
     </NavigationContainer>
   );
 }

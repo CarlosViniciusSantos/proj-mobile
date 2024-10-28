@@ -1,39 +1,31 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Image } from 'expo-image';
-import { useNavigation } from '@react-navigation/native';
 
-export default function CardMinhasCompras() {
-
-  const navigation = useNavigation();
+export default function CardMinhasCompras({ valor, foto, cor, anoFabricacao, cidade }) {
+    // Formatar o valor em reais
+    const valorFormatado = valor ? `R$ ${Number(valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : 'Valor indisponível';
 
     return (
         <View style={styles.pad}>
             <View style={styles.card}>
                 <Image
                     style={styles.image}
-                    source={require('../../assets/images/imageCard.png')}
+                    source={foto ? { uri: foto } : require('../../assets/images/imageCard.png')}
                 />
                 <View style={styles.infos}>
-
-
-                    <View style={styles.madelo}>
-                        <Text style={styles.marca}>Dodge</Text>
-                        <Text style={styles.modelo}> Charger</Text>
-                    </View>
-
-                    <Text style={styles.preco}>R$ 300.000,00</Text>
-                    <Text style={styles.preco}>Cor: Preto</Text>
-                    <Text style={styles.preco}>Ano: 1997</Text>
-                    <Text style={styles.preco}>Cidade: Caraguatatuba</Text>
+                    <Text style={styles.preco}>{valorFormatado}</Text>
+                    <Text style={styles.detalhe}>Cor: {cor || 'Indisponível'}</Text>
+                    <Text style={styles.detalhe}>Ano: {anoFabricacao || 'Indisponível'}</Text>
+                    <Text style={styles.detalhe}>Cidade: {cidade || 'Indisponível'}</Text>
                 </View>
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     pad: {
-        paddingVertical: 10
+        paddingVertical: 10,
     },
     card: {
         flexDirection: 'row',
@@ -41,40 +33,27 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         padding: 10,
-        borderRadius: 20
+        borderRadius: 8,
     },
     image: {
         width: 150,
         height: 150,
+        borderRadius: 8,
+        backgroundColor: '#f0f0f0', // Fundo cinza para imagem padrão
     },
     infos: {
         paddingLeft: 9,
         paddingBottom: 5,
-        gap: 5,
-        width:'60%'
-    },
-    madelo: {
-        flexDirection: 'row'
-    },
-    marca: {
-        fontWeight: 'bold'
-    },
-    modelo: {
-        fontWeight: 'bold',
-        color: 'red'
-    },
-    adicionais: {
-        color: 'red',
+        gap: 8,
+        width: '60%',
     },
     preco: {
-        fontWeight: 'bold'
-    },
-    
-    text: {
-        fontSize: 10,
         fontWeight: 'bold',
-        padding: 6,
-        color: 'white'
+        fontSize: 15,
+        marginVertical: 4,
     },
-
-})
+    detalhe: {
+        fontSize: 14,
+        color: '#333',
+    },
+});
