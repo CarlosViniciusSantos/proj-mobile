@@ -9,7 +9,7 @@ export default function SideBar() {
         <View style={styles.container}>
             <View style={styles.perfilContainer}>
                 <Image
-                    source={require('../assets/images/avatar-hidan.jpg')}
+                    source={require('../assets/images/nophoto.jpg')}
                     style={styles.perfilImage}
                 />
                 <View style={styles.usuario}>
