@@ -31,7 +31,7 @@ export default function FooterVendas({ teste, veiculo, comprar }) {
           <Text style={styles.buttonText}>Comprar</Text>
         </TouchableOpacity>
       ) : ''}
-      <TouchableOpacity style={styles.cllButton} onPress={() => openWhatsApp('551299105-3552')}>
+      <TouchableOpacity style={styles.cllButton} onPress={() => openWhatsApp('551299670-2245')}>
         <Ionicons name="logo-whatsapp" size={24} color="white" />
       </TouchableOpacity>
 
