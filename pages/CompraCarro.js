@@ -93,7 +93,7 @@ export default function CompraCarro() {
 
             if (response.ok) {
                 navigation.navigate('Home');
-                Alert.alert("Sucesso", "Pagamento processado com sucesso.");
+                Alert.alert("Sucesso", "Compra realizada com sucesso. Agora é só aguardar e o vendedor entrará em contato. Acesse seu email, para mais informações");
             } else {
                 Alert.alert("Erro", data.error || "Erro ao processar pagamento.");
             }

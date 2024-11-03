@@ -10,6 +10,7 @@ const CustomModal = ({ visible, onClose, setCardDetails }) => {
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [cardHolder, setCardHolder] = useState('');
+  const [cardBand, setCardBand] = useState('');
 
   const handleCardCreation = async () => {
     const userId = await AsyncStorage.getItem('id');
@@ -25,7 +26,7 @@ const CustomModal = ({ visible, onClose, setCardDetails }) => {
                 validade: expiryDate,
                 cvv: cvv,
                 nomeTitular: cardHolder,
-                bandeira: 'Visa',
+                bandeira: cardBand,
             }),
         });
 
@@ -42,7 +43,7 @@ const CustomModal = ({ visible, onClose, setCardDetails }) => {
             Alert.alert("Sucesso", "Cartão cadastrado com sucesso.");
             onClose();
         } else {
-            Alert.alert("Erro", data.message || "Erro ao cadastrar o cartão.");
+            Alert.alert("Erro", "Cartão já cadastrado"|| "Erro ao cadastrar o cartão.");
         }
     } catch (error) {
         Alert.alert("Erro", "Não foi possível cadastrar o cartão. Tente novamente.");
@@ -90,6 +91,12 @@ const CustomModal = ({ visible, onClose, setCardDetails }) => {
             placeholder="Nome do Titular"
             value={cardHolder}
             onChangeText={setCardHolder}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Bandeira do Cartão"
+            value={cardBand}
+            onChangeText={setCardBand}
           />
           <TouchableOpacity style={styles.button} onPress={handleCardCreation}>
             <Text style={styles.buttonText}>Salvar Informações do Cartão</Text>

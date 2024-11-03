@@ -23,7 +23,17 @@ const Registro = ({ onRegister = () => { } }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
+    const validarSenha = (senha) => {
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return regex.test(senha);
+    };
+
     const handleRegister = async () => {
+        if (!validarSenha(senha)) {
+            Alert.alert('Erro', 'A senha deve conter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, um número e um caractere especial.');
+            return;
+        }
+
         if (senha !== confirmarSenha) {
             Alert.alert('Erro', 'As senhas não coincidem.');
             return;
@@ -61,7 +71,6 @@ const Registro = ({ onRegister = () => { } }) => {
                     onRegister(data.user);
                 }
 
-                // Salvar dados no AsyncStorage
                 await AsyncStorage.setItem('id', data.id.toString());
                 await AsyncStorage.setItem('nome', nome);
                 await AsyncStorage.setItem('email', email);
@@ -72,9 +81,8 @@ const Registro = ({ onRegister = () => { } }) => {
                 await AsyncStorage.setItem('estado', estado);
                 await AsyncStorage.setItem('foto', nophoto);
                 await AsyncStorage.setItem('token', data.accessToken);
-                console.log(data.accessToken)
+                console.log(data.accessToken);
 
-                // Limpar os campos
                 setNome('');
                 setEmail('');
                 setCpf('');
@@ -201,7 +209,7 @@ const Registro = ({ onRegister = () => { } }) => {
                                         value={confirmarSenha}
                                         onChangeText={setConfirmarSenha}
                                     />
-                                     <TouchableOpacity
+                                    <TouchableOpacity
                                         onPress={() => setShowPasswordConfirm(!showPasswordConfirm)}
                                         style={styles.eyeIcon2}
                                     >
