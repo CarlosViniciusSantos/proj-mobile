@@ -4,8 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import NavbarPadrao from '../components/NavbarPadrao';
 import CardCarPagamento from '../components/CardCarPagamento';
 import CustomModal from '../components/ModalCartao';
-import PixModal from '../components/ModalPix';
-import BoletoModal from '../components/ModalBoleto';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
 const baseURL = 'https://pi3-backend-i9l3.onrender.com';
@@ -15,8 +13,6 @@ export default function CompraCarro() {
     const route = useRoute();
     const { veiculo } = route.params;
 
-    const [modalVisiblepix, setModalVisiblePix] = useState(false);
-    const [modalVisibleBol, setModalVisibleBol] = useState(false);
     const [modalVisibleCard, setModalVisibleCard] = useState(false);
     const [userCredits, setUserCredits] = useState([]);
     const [selectedCreditId, setSelectedCreditId] = useState(null);
@@ -135,19 +131,7 @@ export default function CompraCarro() {
                     <Text>Carregando dados do veículo...</Text>
                 )}
             </View>
-            <View style={styles.pagamentos}>
-                <TouchableOpacity style={[styles.pag, styles.pix]} onPress={() => setModalVisiblePix(true)}>
-                    <Text style={styles.texto}>Pix</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.pag, styles.pix]} onPress={() => setModalVisibleBol(true)}>
-                    <Text style={styles.texto}>Boleto</Text>
-                </TouchableOpacity>
-                <View style={[styles.pag, styles.cart]}>
-                    <Text style={styles.texto}>Ou</Text>
-                </View>
-            </View>
 
-            {/* Lista de cartões cadastrados */}
             <View style={styles.cardOptions}>
                 <Text style={styles.subTitle}>Selecione um cartão (Crédito/Débito):</Text>
                 {userCredits.map(credit => (
@@ -179,8 +163,6 @@ export default function CompraCarro() {
                 onClose={() => setModalVisibleCard(false)}
                 setCardDetails={handleCardCreation}
             />
-            <PixModal visible={modalVisiblepix} onClose={() => setModalVisiblePix(false)} />
-            <BoletoModal visible={modalVisibleBol} onClose={() => setModalVisibleBol(false)} />
 
             <View style={{ alignItems: "center" }}>
                 <TouchableOpacity style={styles.buyButton} onPress={handleCompra}>
@@ -206,22 +188,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 17,
         padding: 5
-    },
-    pagamentos: {
-        width: '100%',
-        backgroundColor: 'white',
-        elevation: 10
-    },
-    pag: {
-        padding: 10
-    },
-    texto: {
-        fontSize: 17,
-        fontWeight: 'bold'
-    },
-    pix: {
-        borderColor: 'lightgray',
-        borderBottomWidth: 2
     },
     cardOptions: {
         paddingHorizontal: 10,
@@ -257,7 +223,7 @@ const styles = StyleSheet.create({
         padding: 15, borderRadius: 5,
         alignItems: 'center',
         marginBottom: 25,
-        marginTop: 100,
+        marginTop: 270,
         width: 350
     },
     buyButtonText: {

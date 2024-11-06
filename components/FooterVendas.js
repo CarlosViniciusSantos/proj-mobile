@@ -9,7 +9,7 @@ export default function FooterVendas({ teste, veiculo, comprar }) {
 
   const openWhatsApp = (phoneNumber) => {
     const url = `whatsapp://send?phone=${phoneNumber}`;
-    
+
     Linking.canOpenURL(url)
       .then(supported => {
         if (!supported) {
@@ -19,25 +19,27 @@ export default function FooterVendas({ teste, veiculo, comprar }) {
         }
       })
       .catch(err => console.error('Erro ao abrir o WhatsApp:', err));
-  };  
+  };
 
   return (
-    <View style={styles.footerContainer}>
+    <View>
       {comprar === true ? (
-        <TouchableOpacity
-          style={styles.comprarButton}
-          onPress={() => navigation.navigate('Comprar', { veiculo })}
-        >
-          <Text style={styles.buttonText}>Comprar</Text>
-        </TouchableOpacity>
-      ) : ''}
-      <TouchableOpacity style={styles.cllButton} onPress={() => openWhatsApp('551299670-2245')}>
-        <Ionicons name="logo-whatsapp" size={24} color="white" />
-      </TouchableOpacity>
+        <View style={styles.footerContainer}>
+          <TouchableOpacity
+            style={styles.comprarButton}
+            onPress={() => navigation.navigate('Comprar', { veiculo })}
+          >
+            <Text style={styles.buttonText}>Comprar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.cllButton} onPress={() => openWhatsApp('551299670-2245')}>
+            <Ionicons name="logo-whatsapp" size={24} color="white" />
+          </TouchableOpacity>
 
-      <TouchableOpacity style={styles.messageButton} onPress={() => navigation.navigate('Enviar')}>
-        <Text style={styles.buttonText}>Enviar Mensagem</Text>
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.messageButton} onPress={() => navigation.navigate('Enviar')}>
+            <Text style={styles.buttonText}>Enviar Mensagem</Text>
+          </TouchableOpacity>
+        </View>
+      ) : ''}
     </View>
   );
 }
